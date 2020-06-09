@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using cloudtrader_traders.Helpers;
-using cloudtrader_traders.Services;
+using CloudtraderTraders.Helpers;
+using CloudtraderTraders.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace cloudtrader_traders
+namespace CloudtraderTraders
 {
     public class Startup
     {

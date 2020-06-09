@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace cloudtrader_traders
+namespace CloudtraderTraders
 {
     public class Program
     {

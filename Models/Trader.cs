@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cloudtrader_traders.Models
+namespace CloudtraderTraders.Models
 {
     public class Trader
     {
@@ -19,10 +19,10 @@ namespace cloudtrader_traders.Models
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public int Balance { get; set; }
-        public Trader getTraderPasswordRedacted()
+        public Trader GetTraderPasswordRedacted()
         {
-            /*this.PasswordHash = null;
-            this.PasswordSalt = null;*/
+            this.PasswordHash = null;
+            this.PasswordSalt = null;
             return this;
         }
     }

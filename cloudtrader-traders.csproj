@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <RootNamespace>cloudtrader_traders</RootNamespace>
+    <RootNamespace>CloudtraderTraders</RootNamespace>
+    <AssemblyName>CloudtraderTraders</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

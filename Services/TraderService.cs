@@ -1,23 +1,24 @@
-﻿using cloudtrader_traders.Helpers;
-using cloudtrader_traders.Models;
+﻿using CloudtraderTraders.Helpers;
+using CloudtraderTraders.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cloudtrader_traders.Services
+namespace CloudtraderTraders.Services
 {
     public interface ITraderService
     {
         Task<Trader> Authenticate(string username, string password);
         Task<Trader> Create(Trader user, string password);
         Task<IEnumerable<Trader>> GetAll();
-        Trader GetById(int id);
+        Task<Trader> GetById(int id);
     }
 
     public class TraderService : ITraderService
     {
-        private DataContext _context;
+        private readonly DataContext _context;
 
         public TraderService(DataContext context)
         {
@@ -26,7 +27,7 @@ namespace cloudtrader_traders.Services
 
         public async Task<Trader> Authenticate(string username, string password)
         {
-            var user = await Task.Run(() => _context.Users.SingleOrDefault(x => x.Username == username));
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == username);
 
             // return null if user not found
             if (user == null)
@@ -37,7 +38,7 @@ namespace cloudtrader_traders.Services
                 return null;
 
             // authentication successful so return user details without password
-            return user.getTraderPasswordRedacted();
+            return user.GetTraderPasswordRedacted();
         }
 
         public async Task<IEnumerable<Trader>> GetAll()
@@ -45,17 +46,17 @@ namespace cloudtrader_traders.Services
             return await Task.Run(() => _context.Users.WithoutPasswords());
         }
 
-        public Trader GetById(int id)
+        public async Task<Trader> GetById(int id)
         {
-            return _context.Users.Find(id);
+            return await _context.Users.FindAsync(id);
         }
 
         public async Task<Trader> Create(Trader user, string password)
         {
             if (string.IsNullOrWhiteSpace(password))
-                throw new Exception("Password is required");
+                throw new ArgumentException("Password is required");
 
-            if (_context.Users.Any(x => x.Username == user.Username))
+            if (await _context.Users.AnyAsync(x => x.Username == user.Username))
                 throw new Exception("Username \"" + user.Username + "\" is already taken");
 
             byte[] passwordHash, passwordSalt;
@@ -80,7 +81,7 @@ namespace cloudtrader_traders.Services
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            if (password == null) throw new ArgumentNullException("password");
+            if (password == null) throw new ArgumentNullException(nameof(password));
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
@@ -92,7 +93,7 @@ namespace cloudtrader_traders.Services
 
         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {
-            if (password == null) throw new ArgumentNullException("password");
+            if (password == null) throw new ArgumentNullException(nameof(password));
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
             if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
             if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
