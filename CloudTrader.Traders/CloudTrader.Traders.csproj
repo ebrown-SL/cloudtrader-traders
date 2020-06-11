@@ -12,6 +12,7 @@
     <ExternalConsole>true</ExternalConsole>
     <LaunchUrl>api/values</LaunchUrl>
     <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
+    <LaunchBrowser></LaunchBrowser>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App">
