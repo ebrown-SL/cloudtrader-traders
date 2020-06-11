@@ -25,7 +25,7 @@ namespace CloudtraderTraders.Services
 
         public async Task<TraderModel> Create(TraderModel trader)
         {
-            _context.Users.Add(trader);
+            _context.Traders.Add(trader);
             await _context.SaveChangesAsync();
 
             return trader;
@@ -33,12 +33,12 @@ namespace CloudtraderTraders.Services
 
         public async Task<IEnumerable<TraderModel>> GetAll()
         {
-            return await Task.Run(() => _context.Users);
+            return await Task.Run(() => _context.Traders);
         }
 
         public async Task<TraderModel> GetById(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Traders.FindAsync(id);
         }        
     }
 }
