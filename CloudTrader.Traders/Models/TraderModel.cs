@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CloudtraderTraders.Models
+namespace CloudTrader.Traders.Models
 {
     public class TraderModel
     {

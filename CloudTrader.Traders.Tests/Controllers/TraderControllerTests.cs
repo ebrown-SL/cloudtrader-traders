@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using CloudtraderTraders.Controllers;
-using CloudtraderTraders.Models;
-using CloudtraderTraders.Services;
+using CloudTrader.Traders.Controllers;
+using CloudTrader.Traders.Models;
+using CloudTrader.Traders.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;

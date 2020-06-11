@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <RootNamespace>CloudtraderTraders</RootNamespace>
-    <AssemblyName>CloudtraderTraders</AssemblyName>
+    <RootNamespace>CloudTrader.Traders</RootNamespace>
+    <AssemblyName>CloudTrader.Traders</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'cloudtrader_traders' ">

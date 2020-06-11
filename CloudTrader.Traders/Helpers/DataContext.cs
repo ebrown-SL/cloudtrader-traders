@@ -1,7 +1,7 @@
-﻿using CloudtraderTraders.Models;
+﻿using CloudTrader.Traders.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudtraderTraders.Helpers
+namespace CloudTrader.Traders.Helpers
 {
     public class DataContext : DbContext
     {

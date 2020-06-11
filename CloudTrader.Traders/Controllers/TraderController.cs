@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CloudtraderTraders.Models;
-using CloudtraderTraders.Services;
+using CloudTrader.Traders.Models;
+using CloudTrader.Traders.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CloudtraderTraders.Controllers
+namespace CloudTrader.Traders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

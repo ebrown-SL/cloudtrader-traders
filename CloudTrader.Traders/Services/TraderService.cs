@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CloudtraderTraders.Helpers;
-using CloudtraderTraders.Models;
+using CloudTrader.Traders.Helpers;
+using CloudTrader.Traders.Models;
 
-namespace CloudtraderTraders.Services
+namespace CloudTrader.Traders.Services
 {
     public interface ITraderService
     {

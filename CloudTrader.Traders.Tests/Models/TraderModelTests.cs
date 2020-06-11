@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using CloudtraderTraders.Models;
+using CloudTrader.Traders.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
