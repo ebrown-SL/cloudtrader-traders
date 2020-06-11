@@ -26,48 +26,6 @@ namespace CloudtraderTraders.Controllers
             _traderService = traderService;
         }
 
-        [AllowAnonymous]
-        [HttpPost("login")]
-        public async Task<IActionResult> Authenticate([FromBody] AuthenticationModel model)
-        {
-            var user = await _traderService.Authenticate(model.Username, model.Password);
-
-            if (user == null)
-                return BadRequest("Username or password is incorrect");
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("SOMESECRETTHATSHOULDNOTBEHARDCODEDFORVERIFYINGAUTHENTICITYOFJWTTOKENS");
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(5),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-            return Ok(new
-            {
-                Id = user.Id,
-                Username = user.Username,
-                Balance = user.Balance,
-                Token = tokenString
-            });
-        }
-        
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] AuthenticationModel model)
-        {
-            var user = new Trader(model);
-
-            await _traderService.Create(user, model.Password);
-            return Ok();
-        }
-
         [HttpGet("me")]
         public async Task<IActionResult> GetOwnDetails()
         {
