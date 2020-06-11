@@ -9,6 +9,8 @@ namespace CloudtraderTraders.Services
     {
         Task<TraderModel> Create(TraderModel trader);
 
+        Task<TraderModel> Update(TraderModel trader);
+
         Task<IEnumerable<TraderModel>> GetAll();
 
         Task<TraderModel> GetById(int id);
@@ -26,6 +28,14 @@ namespace CloudtraderTraders.Services
         public async Task<TraderModel> Create(TraderModel trader)
         {
             _context.Traders.Add(trader);
+            await _context.SaveChangesAsync();
+
+            return trader;
+        }
+
+        public async Task<TraderModel> Update(TraderModel trader)
+        {
+            _context.Traders.Update(trader);
             await _context.SaveChangesAsync();
 
             return trader;

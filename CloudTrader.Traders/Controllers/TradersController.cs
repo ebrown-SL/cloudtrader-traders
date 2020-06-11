@@ -29,7 +29,6 @@ namespace CloudtraderTraders.Controllers
         public async Task<ActionResult<TraderModel>> GetTrader(int id)
         {
             var trader = await _traderService.GetById(id);
-
             if (trader == null)
             {
                 return NotFound();
@@ -39,9 +38,28 @@ namespace CloudtraderTraders.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TraderModel>> PostTrader(TraderModel traderModel)
+        public async Task<ActionResult<TraderModel>> CreateTrader(TraderModel traderModel)
         {
+            var existingTrader = await _traderService.GetById(traderModel.Id);
+            if (existingTrader != null)
+            {
+                return Conflict();
+            }
+
             var trader = await _traderService.Create(traderModel);
+
+            return Ok(trader);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<TraderModel>> UpdateTrader(int id, TraderModel traderModel)
+        {
+            if (id != traderModel.Id)
+            {
+                return BadRequest();
+            }
+
+            var trader = await _traderService.Update(traderModel);
 
             return Ok(trader);
         }
