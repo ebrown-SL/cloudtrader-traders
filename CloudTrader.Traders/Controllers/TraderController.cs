@@ -8,11 +8,11 @@ namespace CloudtraderTraders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TradersController : ControllerBase
+    public class TraderController : ControllerBase
     {
         private readonly ITraderService _traderService;
 
-        public TradersController(ITraderService traderService)
+        public TraderController(ITraderService traderService)
         {
             _traderService = traderService;
         }
@@ -26,7 +26,7 @@ namespace CloudtraderTraders.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TraderModel>> GetTrader(int id)
+        public async Task<IActionResult> GetTrader(int id)
         {
             var trader = await _traderService.GetById(id);
             if (trader == null)
@@ -38,7 +38,7 @@ namespace CloudtraderTraders.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TraderModel>> CreateTrader(TraderModel traderModel)
+        public async Task<IActionResult> CreateTrader(TraderModel traderModel)
         {
             var existingTrader = await _traderService.GetById(traderModel.Id);
             if (existingTrader != null)
@@ -52,7 +52,7 @@ namespace CloudtraderTraders.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<TraderModel>> UpdateTrader(int id, TraderModel traderModel)
+        public async Task<IActionResult> UpdateTrader(int id, TraderModel traderModel)
         {
             if (id != traderModel.Id)
             {
