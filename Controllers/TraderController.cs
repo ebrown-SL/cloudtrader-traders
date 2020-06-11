@@ -35,7 +35,6 @@ namespace CloudtraderTraders.Controllers
             return Ok(new 
             {
                 Id = user.Id,
-                Username = user.Username,
                 Balance = user.Balance
             });
         }

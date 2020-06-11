@@ -1,29 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CloudtraderTraders.Models
 {
     public class Trader
     {
-        public Trader() {}
-        public Trader(AuthenticationModel model)
-        {
-            Id = 0;
-            Username = model.Username;
-            Balance = 100;
-        }
+        [Key]
         public int Id { get; set; }
-        public string Username { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+
+        [Required]
         public int Balance { get; set; }
-        public Trader GetTraderPasswordRedacted()
-        {
-            this.PasswordHash = null;
-            this.PasswordSalt = null;
-            return this;
-        }
     }
 }

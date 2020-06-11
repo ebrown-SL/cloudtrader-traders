@@ -10,7 +10,7 @@ namespace CloudtraderTraders.Services
 {
     public interface ITraderService
     {
-        Task<Trader> Create(Trader user, string password);
+        Task<Trader> Create(Trader user);
         Task<IEnumerable<Trader>> GetAll();
         Task<Trader> GetById(int id);
     }
@@ -26,7 +26,7 @@ namespace CloudtraderTraders.Services
 
         public async Task<IEnumerable<Trader>> GetAll()
         {
-            return await Task.Run(() => _context.Users.WithoutPasswords());
+            return await Task.Run(() => _context.Users);
         }
 
         public async Task<Trader> GetById(int id)
@@ -34,14 +34,8 @@ namespace CloudtraderTraders.Services
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<Trader> Create(Trader user, string password)
+        public async Task<Trader> Create(Trader user)
         {
-            if (string.IsNullOrWhiteSpace(password))
-                throw new ArgumentException("Password is required");
-
-            if (await _context.Users.AnyAsync(x => x.Username == user.Username))
-                throw new Exception("Username \"" + user.Username + "\" is already taken");
-
             user.Id = _context.Users.Count() + 1;
 
             _context.Users.Add(user);
