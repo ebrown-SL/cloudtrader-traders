@@ -9,6 +9,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'cloudtrader_traders' ">
     <StartAction>Project</StartAction>
+    <ExternalConsole>true</ExternalConsole>
     <LaunchUrl>api/values</LaunchUrl>
     <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
   </PropertyGroup>
