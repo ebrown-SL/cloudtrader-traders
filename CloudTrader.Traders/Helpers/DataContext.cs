@@ -15,6 +15,6 @@ namespace CloudtraderTraders.Helpers
         {
         }
 
-        public DbSet<Trader> Users { get; set; }
+        public DbSet<TraderModel> Users { get; set; }
     }
 }

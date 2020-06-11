@@ -2,7 +2,7 @@
 
 namespace CloudtraderTraders.Models
 {
-    public class Trader
+    public class TraderModel
     {
         [Key]
         public int Id { get; set; }

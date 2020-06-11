@@ -10,9 +10,9 @@ namespace CloudtraderTraders.Services
 {
     public interface ITraderService
     {
-        Task<Trader> Create(Trader user);
-        Task<IEnumerable<Trader>> GetAll();
-        Task<Trader> GetById(int id);
+        Task<TraderModel> Create(TraderModel user);
+        Task<IEnumerable<TraderModel>> GetAll();
+        Task<TraderModel> GetById(int id);
     }
 
     public class TraderService : ITraderService
@@ -24,17 +24,17 @@ namespace CloudtraderTraders.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Trader>> GetAll()
+        public async Task<IEnumerable<TraderModel>> GetAll()
         {
             return await Task.Run(() => _context.Users);
         }
 
-        public async Task<Trader> GetById(int id)
+        public async Task<TraderModel> GetById(int id)
         {
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<Trader> Create(Trader user)
+        public async Task<TraderModel> Create(TraderModel user)
         {
             user.Id = _context.Users.Count() + 1;
 
