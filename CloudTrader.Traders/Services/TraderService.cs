@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CloudTrader.Traders.Helpers;
 using CloudTrader.Traders.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Traders.Services
 {
@@ -43,7 +44,7 @@ namespace CloudTrader.Traders.Services
 
         public async Task<IEnumerable<TraderModel>> GetAll()
         {
-            return await Task.Run(() => _context.Traders);
+            return await _context.Traders.ToListAsync();
         }
 
         public async Task<TraderModel> GetById(int id)
