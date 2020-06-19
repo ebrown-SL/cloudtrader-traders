@@ -2,7 +2,7 @@
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CloudTrader.Traders.Controllers
+namespace CloudTrader.Traders.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

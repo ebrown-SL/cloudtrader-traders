@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders", "CloudTrader.Traders\CloudTrader.Traders.csproj", "{16931052-5FCD-480D-8707-B7A843B22C0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Api", "CloudTrader.Traders.Api\CloudTrader.Traders.Api.csproj", "{16931052-5FCD-480D-8707-B7A843B22C0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Tests", "CloudTrader.Traders.Tests\CloudTrader.Traders.Tests.csproj", "{2A0E339B-7B69-438C-9B5F-DA2B2B4FF84D}"
 EndProject
