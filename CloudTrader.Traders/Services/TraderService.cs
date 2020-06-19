@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CloudTrader.Traders.Helpers;
+using CloudTrader.Traders.Repositories;
 using CloudTrader.Traders.Service.Models;
 
 namespace CloudTrader.Traders.Services
@@ -13,24 +13,23 @@ namespace CloudTrader.Traders.Services
 
     public class TraderService : ITraderService
     {
-        private readonly DataContext _context;
+        private readonly ITraderRepository _traderRepository;
 
-        public TraderService(DataContext context)
+        public TraderService(ITraderRepository traderRepository)
         {
-            _context = context;
+            _traderRepository = traderRepository;
         }
 
         public async Task<Trader> Create(Trader trader)
         {
-            _context.Traders.Add(trader);
-            await _context.SaveChangesAsync();
+            await _traderRepository.SaveTrader(trader);
 
             return trader;
         }
 
         public async Task<Trader> GetById(int id)
         {
-            return await _context.Traders.FindAsync(id);
+            return await _traderRepository.GetTrader(id);
         }        
     }
 }
