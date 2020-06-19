@@ -4,13 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Traders.Data
 {
-    public interface ITraderRepository
-    {
-        Task SaveTrader(Trader trader);
-
-        Task<Trader> GetTrader(int id);
-    }
-
     public class TraderRepository : ITraderRepository
     {
         private readonly TraderContext _context;
