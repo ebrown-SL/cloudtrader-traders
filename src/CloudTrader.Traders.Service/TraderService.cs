@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
+using CloudTrader.Traders.Service.Exceptions;
 
 namespace CloudTrader.Traders.Service
 {
     public interface ITraderService
     {
-        Task<Trader> Create(Trader trader);
+        Task<Trader> CreateTrader(int id);
 
-        Task<Trader> GetById(int id);
+        Task<Trader> GetTrader(int id);
     }
 
     public class TraderService : ITraderService
@@ -18,16 +19,32 @@ namespace CloudTrader.Traders.Service
             _traderRepository = traderRepository;
         }
 
-        public async Task<Trader> Create(Trader trader)
+        public async Task<Trader> CreateTrader(int id)
         {
+            var existingTrader = await _traderRepository.GetTrader(id);
+            if (existingTrader != null)
+            {
+                throw new TraderAlreadyExistsException(id);
+            }
+
+            var trader = new Trader
+            {
+                Id = id
+            };
             await _traderRepository.SaveTrader(trader);
 
             return trader;
         }
 
-        public async Task<Trader> GetById(int id)
+        public async Task<Trader> GetTrader(int id)
         {
-            return await _traderRepository.GetTrader(id);
+            var trader = await _traderRepository.GetTrader(id);
+            if (trader == null)
+            {
+                throw new TraderNotFoundException(id);
+            }
+
+            return trader;
         }
     }
 }

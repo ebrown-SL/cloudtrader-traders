@@ -18,25 +18,15 @@ namespace CloudTrader.Traders.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTrader(int id)
         {
-            var trader = await _traderService.GetById(id);
-            if (trader == null)
-            {
-                return NotFound();
-            }
+            var trader = await _traderService.GetTrader(id);
 
             return Ok(trader);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTrader(Trader Trader)
+        public async Task<IActionResult> CreateTrader(int id)
         {
-            var existingTrader = await _traderService.GetById(Trader.Id);
-            if (existingTrader != null)
-            {
-                return Conflict();
-            }
-
-            var trader = await _traderService.Create(Trader);
+            var trader = await _traderService.CreateTrader(id);
 
             return Ok(trader);
         }
