@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CloudTrader.Traders.Repositories;
+using CloudTrader.Traders.Data;
 using CloudTrader.Traders.Service.Models;
 
 namespace CloudTrader.Traders.Services

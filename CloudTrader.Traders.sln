@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Service", "CloudTrader.Traders.Service\CloudTrader.Traders.Service.csproj", "{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Data", "CloudTrader.Traders.Data\CloudTrader.Traders.Data.csproj", "{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

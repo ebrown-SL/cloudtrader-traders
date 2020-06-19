@@ -1,11 +1,11 @@
 ﻿using CloudTrader.Traders.Service.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudTrader.Traders.Helpers
+namespace CloudTrader.Traders.Data
 {
-    public class DataContext : DbContext
+    public class TraderContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options)
+        public TraderContext(DbContextOptions<TraderContext> options)
             : base(options)
         {
         }
