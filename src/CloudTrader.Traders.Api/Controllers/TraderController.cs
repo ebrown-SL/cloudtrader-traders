@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CloudTrader.Traders.Api.Models;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +25,9 @@ namespace CloudTrader.Traders.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTrader(int id)
+        public async Task<IActionResult> CreateTrader(TraderCreationModel creationModel)
         {
-            var trader = await _traderService.CreateTrader(id);
+            var trader = await _traderService.CreateTrader(creationModel.Id);
 
             return Ok(trader);
         }
