@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Traders.Service;
-using CloudTrader.Traders.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudTrader.Traders.Controllers

@@ -1,4 +1,4 @@
-﻿using CloudTrader.Traders.Services;
+﻿using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

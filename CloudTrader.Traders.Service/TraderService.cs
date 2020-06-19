@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
-using CloudTrader.Traders.Data;
-using CloudTrader.Traders.Service;
 
-namespace CloudTrader.Traders.Services
+namespace CloudTrader.Traders.Service
 {
     public interface ITraderService
     {
@@ -30,6 +28,6 @@ namespace CloudTrader.Traders.Services
         public async Task<Trader> GetById(int id)
         {
             return await _traderRepository.GetTrader(id);
-        }        
+        }
     }
 }
