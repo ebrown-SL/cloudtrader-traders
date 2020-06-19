@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CloudTrader.Traders.Api.Exceptions;
 using CloudTrader.Traders.Data;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +25,10 @@ namespace CloudTrader.Traders
             services.AddScoped<ITraderService, TraderService>();
             services.AddScoped<ITraderRepository, TraderRepository>();
             services.AddAutoMapper(typeof(TraderProfile));
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new GlobalExceptionFilter());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
