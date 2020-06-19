@@ -1,5 +1,4 @@
-﻿using CloudTrader.Traders.Service;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Traders.Data
 {
