@@ -1,4 +1,4 @@
-﻿using CloudTrader.Traders.Models;
+﻿using CloudTrader.Traders.Service.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Traders.Helpers
@@ -10,6 +10,6 @@ namespace CloudTrader.Traders.Helpers
         {
         }
 
-        public DbSet<TraderModel> Traders { get; set; }
+        public DbSet<Trader> Traders { get; set; }
     }
 }

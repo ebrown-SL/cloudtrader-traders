@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CloudTrader.Traders.Helpers;
-using CloudTrader.Traders.Models;
+using CloudTrader.Traders.Service.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Traders.Services
 {
     public interface ITraderService
     {
-        Task<TraderModel> Create(TraderModel trader);
+        Task<Trader> Create(Trader trader);
 
-        Task<TraderModel> Update(TraderModel trader);
+        Task<Trader> Update(Trader trader);
 
-        Task<IEnumerable<TraderModel>> GetAll();
+        Task<IEnumerable<Trader>> GetAll();
 
-        Task<TraderModel> GetById(int id);
+        Task<Trader> GetById(int id);
     }
 
     public class TraderService : ITraderService
@@ -26,7 +26,7 @@ namespace CloudTrader.Traders.Services
             _context = context;
         }
 
-        public async Task<TraderModel> Create(TraderModel trader)
+        public async Task<Trader> Create(Trader trader)
         {
             _context.Traders.Add(trader);
             await _context.SaveChangesAsync();
@@ -34,7 +34,7 @@ namespace CloudTrader.Traders.Services
             return trader;
         }
 
-        public async Task<TraderModel> Update(TraderModel trader)
+        public async Task<Trader> Update(Trader trader)
         {
             _context.Traders.Update(trader);
             await _context.SaveChangesAsync();
@@ -42,12 +42,12 @@ namespace CloudTrader.Traders.Services
             return trader;
         }
 
-        public async Task<IEnumerable<TraderModel>> GetAll()
+        public async Task<IEnumerable<Trader>> GetAll()
         {
             return await _context.Traders.ToListAsync();
         }
 
-        public async Task<TraderModel> GetById(int id)
+        public async Task<Trader> GetById(int id)
         {
             return await _context.Traders.FindAsync(id);
         }        
