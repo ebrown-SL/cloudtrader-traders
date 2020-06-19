@@ -1,18 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CloudTrader.Traders.Helpers;
 using CloudTrader.Traders.Service.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Traders.Services
 {
     public interface ITraderService
     {
         Task<Trader> Create(Trader trader);
-
-        Task<Trader> Update(Trader trader);
-
-        Task<IEnumerable<Trader>> GetAll();
 
         Task<Trader> GetById(int id);
     }
@@ -32,19 +26,6 @@ namespace CloudTrader.Traders.Services
             await _context.SaveChangesAsync();
 
             return trader;
-        }
-
-        public async Task<Trader> Update(Trader trader)
-        {
-            _context.Traders.Update(trader);
-            await _context.SaveChangesAsync();
-
-            return trader;
-        }
-
-        public async Task<IEnumerable<Trader>> GetAll()
-        {
-            return await _context.Traders.ToListAsync();
         }
 
         public async Task<Trader> GetById(int id)

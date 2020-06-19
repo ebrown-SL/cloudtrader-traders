@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CloudTrader.Traders.Service.Models;
 using CloudTrader.Traders.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,14 +14,6 @@ namespace CloudTrader.Traders.Controllers
         public TraderController(ITraderService traderService)
         {
             _traderService = traderService;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Trader>>> GetAll()
-        {
-            var traders = await _traderService.GetAll();
-
-            return Ok(traders);
         }
 
         [HttpGet("{id}")]
@@ -47,19 +38,6 @@ namespace CloudTrader.Traders.Controllers
             }
 
             var trader = await _traderService.Create(Trader);
-
-            return Ok(trader);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTrader(int id, Trader Trader)
-        {
-            if (id != Trader.Id)
-            {
-                return BadRequest();
-            }
-
-            var trader = await _traderService.Update(Trader);
 
             return Ok(trader);
         }
