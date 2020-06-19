@@ -18,6 +18,7 @@ namespace CloudTrader.Traders.Data
         public TraderRepository()
         {
             var contextOptions = new DbContextOptionsBuilder<TraderContext>()
+                .UseInMemoryDatabase(databaseName: "Traders")
                 .Options;
             _context = new TraderContext(contextOptions);
         }
