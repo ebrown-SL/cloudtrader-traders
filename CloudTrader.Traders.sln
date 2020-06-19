@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Api", "src\CloudTrader.Traders.Api\CloudTrader.Traders.Api.csproj", "{16931052-5FCD-480D-8707-B7A843B22C0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Tests", "CloudTrader.Traders.Tests\CloudTrader.Traders.Tests.csproj", "{2A0E339B-7B69-438C-9B5F-DA2B2B4FF84D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Service", "src\CloudTrader.Traders.Service\CloudTrader.Traders.Service.csproj", "{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Data", "src\CloudTrader.Traders.Data\CloudTrader.Traders.Data.csproj", "{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}"
@@ -23,10 +21,6 @@ Global
 		{16931052-5FCD-480D-8707-B7A843B22C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16931052-5FCD-480D-8707-B7A843B22C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16931052-5FCD-480D-8707-B7A843B22C0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A0E339B-7B69-438C-9B5F-DA2B2B4FF84D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A0E339B-7B69-438C-9B5F-DA2B2B4FF84D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A0E339B-7B69-438C-9B5F-DA2B2B4FF84D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A0E339B-7B69-438C-9B5F-DA2B2B4FF84D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
