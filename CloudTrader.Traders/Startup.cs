@@ -1,4 +1,5 @@
-﻿using CloudTrader.Traders.Service;
+﻿using CloudTrader.Traders.Data;
+using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +20,8 @@ namespace CloudTrader.Traders
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
             services.AddScoped<ITraderService, TraderService>();
+            services.AddScoped<ITraderRepository, TraderRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -31,7 +32,6 @@ namespace CloudTrader.Traders
             }
 
             app.UseRouting();
-
 
             app.UseEndpoints(endpoints =>
             {
