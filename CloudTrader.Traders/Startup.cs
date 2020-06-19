@@ -1,4 +1,5 @@
-﻿using CloudTrader.Traders.Data;
+﻿using AutoMapper;
+using CloudTrader.Traders.Data;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,7 @@ namespace CloudTrader.Traders
             services.AddControllers();
             services.AddScoped<ITraderService, TraderService>();
             services.AddScoped<ITraderRepository, TraderRepository>();
+            services.AddAutoMapper(typeof(TraderProfile));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

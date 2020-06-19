@@ -10,6 +10,6 @@ namespace CloudTrader.Traders.Data
         {
         }
 
-        public DbSet<Trader> Traders { get; set; }
+        public DbSet<TraderDbModel> Traders { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using CloudTrader.Traders.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +9,12 @@ namespace CloudTrader.Traders.Data
     {
         private readonly TraderContext _context;
 
-        public TraderRepository()
+        private readonly IMapper _mapper;
+
+        public TraderRepository(IMapper mapper)
         {
+            _mapper = mapper;
+
             var contextOptions = new DbContextOptionsBuilder<TraderContext>()
                 .UseInMemoryDatabase(databaseName: "Traders")
                 .Options;
@@ -18,12 +23,15 @@ namespace CloudTrader.Traders.Data
 
         public async Task<Trader> GetTrader(int id)
         {
-            return await _context.Traders.FindAsync(id);
+            var traderDbModel = await _context.Traders.FindAsync(id);
+            var trader = _mapper.Map<Trader>(traderDbModel);
+            return trader;
         }
 
         public async Task SaveTrader(Trader trader)
         {
-            _context.Traders.Add(trader);
+            var traderDbModel = _mapper.Map<TraderDbModel>(trader);
+            _context.Traders.Add(traderDbModel);
             await _context.SaveChangesAsync();
         }
     }
