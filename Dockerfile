@@ -1,16 +1,26 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
-WORKDIR /app
+WORKDIR /sln
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
+# Restore solution
+COPY ./CloudTrader.Traders.sln ./
+COPY ./src/CloudTrader.Traders.Api/CloudTrader.Traders.Api.csproj  ./src/CloudTrader.Traders.Api/CloudTrader.Traders.Api.csproj
+COPY ./src/CloudTrader.Traders.Data/CloudTrader.Traders.Data.csproj  ./src/CloudTrader.Traders.Data/CloudTrader.Traders.Data.csproj
+COPY ./src/CloudTrader.Traders.Service/CloudTrader.Traders.Service.csproj  ./src/CloudTrader.Traders.Service/CloudTrader.Traders.Service.csproj
+COPY ./test/CloudTrader.Traders.Api.Tests/CloudTrader.Traders.Api.Tests.csproj  ./test/CloudTrader.Traders.Api.Tests/CloudTrader.Traders.Api.Tests.csproj
+COPY ./test/CloudTrader.Traders.Data.Tests/CloudTrader.Traders.Data.Tests.csproj  ./test/CloudTrader.Traders.Data.Tests/CloudTrader.Traders.Data.Tests.csproj
+COPY ./test/CloudTrader.Traders.Service.Tests/CloudTrader.Traders.Service.Tests.csproj  ./test/CloudTrader.Traders.Service.Tests/CloudTrader.Traders.Service.Tests.csproj
+
 RUN dotnet restore
 
-# Copy everything else and build
+# Build solution
 COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-WORKDIR /app
-COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "cloudtrader-traders.dll"]
+WORKDIR /sln
+COPY --from=build-env /sln/out .
+
+EXPOSE 80
+
+ENTRYPOINT ["dotnet", "CloudTrader.Traders.dll"]

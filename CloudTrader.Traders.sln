@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Api", "src\CloudTrader.Traders.Api\CloudTrader.Traders.Api.csproj", "{16931052-5FCD-480D-8707-B7A843B22C0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Service", "src\CloudTrader.Traders.Service\CloudTrader.Traders.Service.csproj", "{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Data", "src\CloudTrader.Traders.Data\CloudTrader.Traders.Data.csproj", "{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Service.Tests", "test\CloudTrader.Traders.Service.Tests\CloudTrader.Traders.Service.Tests.csproj", "{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Api.Tests", "test\CloudTrader.Traders.Api.Tests\CloudTrader.Traders.Api.Tests.csproj", "{276D0346-96DB-4552-A354-C6DF60B56EFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Data.Tests", "test\CloudTrader.Traders.Data.Tests\CloudTrader.Traders.Data.Tests.csproj", "{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16931052-5FCD-480D-8707-B7A843B22C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16931052-5FCD-480D-8707-B7A843B22C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16931052-5FCD-480D-8707-B7A843B22C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16931052-5FCD-480D-8707-B7A843B22C0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{276D0346-96DB-4552-A354-C6DF60B56EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{276D0346-96DB-4552-A354-C6DF60B56EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{276D0346-96DB-4552-A354-C6DF60B56EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{276D0346-96DB-4552-A354-C6DF60B56EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB93D1F3-A7F0-402D-82C0-D8EC0453735A}
+	EndGlobalSection
+EndGlobal
