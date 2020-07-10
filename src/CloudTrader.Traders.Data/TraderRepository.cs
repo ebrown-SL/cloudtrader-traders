@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using CloudTrader.Traders.Models.Data;
+using CloudTrader.Traders.Models.Service;
 using CloudTrader.Traders.Service;
 using Microsoft.EntityFrameworkCore;
 

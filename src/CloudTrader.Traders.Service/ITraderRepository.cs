@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using CloudTrader.Traders.Models.Service;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Traders.Service
 {

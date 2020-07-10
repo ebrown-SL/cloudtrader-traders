@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CloudTrader.Traders.Api.Models;
+using CloudTrader.Traders.Models.Api;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Mvc;
 

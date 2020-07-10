@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CloudTrader.Traders.Models.Service;
 using CloudTrader.Traders.Service.Exceptions;
 
 namespace CloudTrader.Traders.Service

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CloudTrader.Traders.Models\CloudTrader.Traders.Models.csproj" />
     <ProjectReference Include="..\CloudTrader.Traders.Service\CloudTrader.Traders.Service.csproj" />
   </ItemGroup>
   <ItemGroup>

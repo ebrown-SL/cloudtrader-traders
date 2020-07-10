@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using CloudTrader.Traders.Service;
+using CloudTrader.Traders.Models.Data;
+using CloudTrader.Traders.Models.Service;
 
 namespace CloudTrader.Traders.Data
 {

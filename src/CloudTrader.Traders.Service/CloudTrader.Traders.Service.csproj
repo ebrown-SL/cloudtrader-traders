@@ -7,4 +7,8 @@
   <ItemGroup>
     <Folder Include="Exceptions\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CloudTrader.Traders.Models\CloudTrader.Traders.Models.csproj" />
+  </ItemGroup>
 </Project>

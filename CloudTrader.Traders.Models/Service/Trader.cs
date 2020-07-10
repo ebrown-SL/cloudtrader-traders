@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CloudTrader.Traders.Data
+namespace CloudTrader.Traders.Models.Service
 {
-    public class TraderDbModel
+    public class Trader
     {
         [Key]
         public int Id { get; set; }
