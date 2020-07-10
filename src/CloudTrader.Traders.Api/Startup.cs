@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace CloudTrader.Traders
 {
@@ -29,6 +30,17 @@ namespace CloudTrader.Traders
             {
                 options.Filters.Add(new GlobalExceptionFilter());
             });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "CloudTrader-Traders API",
+                    Description = "Endpoints for the CloudTrader-Traders service"
+                });
+
+                c.EnableAnnotations();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,6 +50,12 @@ namespace CloudTrader.Traders
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CloudTrader-Traders API");
+            });
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
