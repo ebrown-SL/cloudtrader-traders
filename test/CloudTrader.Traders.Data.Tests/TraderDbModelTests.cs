@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CloudTrader.Traders.Models.Data;
 using NUnit.Framework;
 
 namespace CloudTrader.Traders.Data.Tests
