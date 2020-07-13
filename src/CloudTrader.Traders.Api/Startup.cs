@@ -30,6 +30,7 @@ namespace CloudTrader.Traders
             {
                 options.Filters.Add(new GlobalExceptionFilter());
             });
+            services.AddDbContext<TraderContext>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

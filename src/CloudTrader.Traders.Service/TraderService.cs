@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
+using CloudTrader.Traders.Models.Data;
 using CloudTrader.Traders.Models.Service;
 using CloudTrader.Traders.Service.Exceptions;
 
@@ -15,18 +17,20 @@ namespace CloudTrader.Traders.Service
     {
         private readonly ITraderRepository _traderRepository;
 
-        public TraderService(ITraderRepository traderRepository)
+        private readonly IMapper _mapper;
+
+        public TraderService(ITraderRepository traderRepository, IMapper mapper)
         {
             _traderRepository = traderRepository;
+
+            _mapper = mapper;
         }
 
         public async Task<Trader> CreateTrader()
         {
-            var trader = new Trader();
+            var trader = await _traderRepository.SaveTrader(new TraderDbModel());
 
-            trader = await _traderRepository.SaveTrader(trader);
-
-            return trader;
+            return _mapper.Map<Trader>(trader);
         }
 
         public async Task<Trader> GetTrader(int id)
@@ -37,7 +41,7 @@ namespace CloudTrader.Traders.Service
                 throw new TraderNotFoundException(id);
             }
 
-            return trader;
+            return _mapper.Map<Trader>(trader);
         }
     }
 }

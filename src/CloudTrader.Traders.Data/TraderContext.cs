@@ -5,11 +5,13 @@ namespace CloudTrader.Traders.Data
 {
     public class TraderContext : DbContext
     {
-        public TraderContext(DbContextOptions<TraderContext> options)
-            : base(options)
-        {
-        }
+        public TraderContext(DbContextOptions<TraderContext> options) : base(options) { }
 
         public DbSet<TraderDbModel> Traders { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseInMemoryDatabase(databaseName: "Traders");
+        }
     }
 }

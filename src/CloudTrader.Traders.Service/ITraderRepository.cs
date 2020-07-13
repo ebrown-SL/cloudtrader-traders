@@ -1,12 +1,12 @@
-﻿using CloudTrader.Traders.Models.Service;
+﻿using CloudTrader.Traders.Models.Data;
 using System.Threading.Tasks;
 
 namespace CloudTrader.Traders.Service
 {
     public interface ITraderRepository
     {
-        Task<Trader> SaveTrader(Trader trader);
+        Task<TraderDbModel> SaveTrader(TraderDbModel trader);
 
-        Task<Trader> GetTrader(int id);
+        Task<TraderDbModel> GetTrader(int id);
     }
 }
