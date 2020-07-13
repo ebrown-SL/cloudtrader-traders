@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using CloudTrader.Traders.Models.Data;
 using CloudTrader.Traders.Models.Service;
@@ -9,8 +10,8 @@ namespace CloudTrader.Traders.Service
     public interface ITraderService
     {
         Task<Trader> CreateTrader();
-
         Task<Trader> GetTrader(int id);
+        Task<List<Trader>> GetTraders();
     }
 
     public class TraderService : ITraderService
@@ -42,6 +43,12 @@ namespace CloudTrader.Traders.Service
             }
 
             return _mapper.Map<Trader>(trader);
+        }
+
+        public async Task<List<Trader>> GetTraders()
+        {
+            var traders = await _traderRepository.GetTraders();
+            return _mapper.Map<List<Trader>>(traders);
         }
     }
 }

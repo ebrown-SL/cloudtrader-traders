@@ -58,5 +58,38 @@ namespace CloudTrader.Traders.Service.Tests
 
             Assert.AreEqual(1, trader.Id);
         }
+
+        [Test]
+        public async Task GetTraders_NoTraders_ReturnsEmptyList()
+        {
+            var mockTraderRepository = new Mock<ITraderRepository>();
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var mapper = new Mapper(config);
+            var traderService = new TraderService(mockTraderRepository.Object, mapper);
+
+            mockTraderRepository.Setup(mock => mock.GetTraders()).ReturnsAsync(new List<TraderDbModel>());
+
+            var traders = await traderService.GetTraders();
+            var isEmpty = traders.Count == 0;
+
+            Assert.True(isEmpty);
+        }
+
+        [Test]
+        public async Task GetTraders_TradersExist_ReturnsListOfTraders()
+        {
+            var mockTraderRepository = new Mock<ITraderRepository>();
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var mapper = new Mapper(config);
+            var traderService = new TraderService(mockTraderRepository.Object, mapper);
+
+            mockTraderRepository.Setup(mock => mock.GetTraders()).ReturnsAsync(new List<TraderDbModel>() {
+                new TraderDbModel(), new TraderDbModel(), new TraderDbModel() });
+
+            var mines = await traderService.GetTraders();
+            var hasMines = mines.Count == 3;
+
+            Assert.True(hasMines);
+        }
     }
 }

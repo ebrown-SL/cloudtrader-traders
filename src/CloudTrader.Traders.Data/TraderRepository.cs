@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CloudTrader.Traders.Models.Data;
+using CloudTrader.Traders.Models.Service;
 using CloudTrader.Traders.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Traders.Data
 {
@@ -17,6 +20,12 @@ namespace CloudTrader.Traders.Data
         {
             var trader = await _context.Traders.FindAsync(id);
             return trader;
+        }
+
+        public async Task<List<TraderDbModel>> GetTraders()
+        {
+            var traders = await _context.Traders.ToListAsync();
+            return traders;
         }
 
         public async Task<TraderDbModel> SaveTrader(TraderDbModel trader)

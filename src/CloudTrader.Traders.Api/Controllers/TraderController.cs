@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Mvc;
+using CloudTrader.Traders.Models.Api;
 
 namespace CloudTrader.Traders.Api.Controllers
 {
@@ -13,6 +14,14 @@ namespace CloudTrader.Traders.Api.Controllers
         public TraderController(ITraderService traderService)
         {
             _traderService = traderService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTraders()
+        {
+            var traders = new GetAllTradersResponseModel(await _traderService.GetTraders());
+
+            return Ok(traders);
         }
 
         [HttpGet("{id}")]
