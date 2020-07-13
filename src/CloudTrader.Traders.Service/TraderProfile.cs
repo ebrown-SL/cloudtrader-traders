@@ -2,7 +2,7 @@
 using CloudTrader.Traders.Models.Data;
 using CloudTrader.Traders.Models.Service;
 
-namespace CloudTrader.Traders.Data
+namespace CloudTrader.Traders.Service
 {
     public class TraderProfile : Profile
     {
