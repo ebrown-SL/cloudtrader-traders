@@ -30,11 +30,12 @@ namespace CloudTrader.Traders.Data
             return trader;
         }
 
-        public async Task SaveTrader(Trader trader)
+        public async Task<Trader> SaveTrader(Trader trader)
         {
             var traderDbModel = _mapper.Map<TraderDbModel>(trader);
             _context.Traders.Add(traderDbModel);
             await _context.SaveChangesAsync();
+            return _mapper.Map<Trader>(traderDbModel);
         }
     }
 }

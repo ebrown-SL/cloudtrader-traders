@@ -6,7 +6,7 @@ namespace CloudTrader.Traders.Service
 {
     public interface ITraderService
     {
-        Task<Trader> CreateTrader(int id);
+        Task<Trader> CreateTrader();
 
         Task<Trader> GetTrader(int id);
     }
@@ -20,19 +20,11 @@ namespace CloudTrader.Traders.Service
             _traderRepository = traderRepository;
         }
 
-        public async Task<Trader> CreateTrader(int id)
+        public async Task<Trader> CreateTrader()
         {
-            var existingTrader = await _traderRepository.GetTrader(id);
-            if (existingTrader != null)
-            {
-                throw new TraderAlreadyExistsException(id);
-            }
+            var trader = new Trader();
 
-            var trader = new Trader
-            {
-                Id = id
-            };
-            await _traderRepository.SaveTrader(trader);
+            trader = await _traderRepository.SaveTrader(trader);
 
             return trader;
         }

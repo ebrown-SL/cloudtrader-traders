@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using CloudTrader.Traders.Models.Api;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudTrader.Traders.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/trader")]
     [ApiController]
     public class TraderController : ControllerBase
     {
@@ -25,11 +24,11 @@ namespace CloudTrader.Traders.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTrader(TraderCreationModel creationModel)
+        public async Task<IActionResult> CreateTrader()
         {
-            var trader = await _traderService.CreateTrader(creationModel.Id);
+            var trader = await _traderService.CreateTrader();
 
-            return Ok(trader);
+            return Created($"/api/trader/{trader.Id}",trader);
         }
     }
 }

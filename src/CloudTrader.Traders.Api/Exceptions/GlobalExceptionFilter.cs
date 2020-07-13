@@ -10,9 +10,6 @@ namespace CloudTrader.Traders.Api.Exceptions
         {
             switch (context.Exception)
             {
-                case TraderAlreadyExistsException exception:
-                    context.Result = new ConflictObjectResult(exception.Message);
-                    break;
                 case TraderNotFoundException exception:
                     context.Result = new NotFoundObjectResult(exception.Message);
                     break;
