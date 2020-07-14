@@ -70,7 +70,7 @@ namespace CloudTrader.Traders.Service.Tests
             mockTraderRepository.Setup(mock => mock.GetTraders()).ReturnsAsync(new List<TraderDbModel>());
 
             var traders = await traderService.GetTraders();
-            var isEmpty = traders.Count == 0;
+            var isEmpty = traders.Traders.Count == 0;
 
             Assert.True(isEmpty);
         }
@@ -86,10 +86,10 @@ namespace CloudTrader.Traders.Service.Tests
             mockTraderRepository.Setup(mock => mock.GetTraders()).ReturnsAsync(new List<TraderDbModel>() {
                 new TraderDbModel(), new TraderDbModel(), new TraderDbModel() });
 
-            var mines = await traderService.GetTraders();
-            var hasMines = mines.Count == 3;
+            var traders = await traderService.GetTraders();
+            var hasTraders = traders.Traders.Count == 3;
 
-            Assert.True(hasMines);
+            Assert.True(hasTraders);
         }
     }
 }

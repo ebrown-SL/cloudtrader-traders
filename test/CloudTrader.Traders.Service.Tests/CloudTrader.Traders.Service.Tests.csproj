@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CloudTrader.Traders.Data\CloudTrader.Traders.Data.csproj" />
+    <ProjectReference Include="..\..\src\CloudTrader.Traders.Models\CloudTrader.Traders.Models.csproj" />
     <ProjectReference Include="..\..\src\CloudTrader.Traders.Service\CloudTrader.Traders.Service.csproj" />
   </ItemGroup>
 </Project>

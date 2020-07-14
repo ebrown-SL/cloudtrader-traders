@@ -14,6 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CloudTrader.Traders.Models\CloudTrader.Traders.Models.csproj" />
+    <ProjectReference Include="..\CloudTrader.Traders.Models\CloudTrader.Traders.Models.csproj" />
   </ItemGroup>
 </Project>
