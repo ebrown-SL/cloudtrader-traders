@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Traders.Models.Service
 {
@@ -9,5 +10,8 @@ namespace CloudTrader.Traders.Models.Service
 
         [Required]
         public int Balance { get; set; }
+
+        [Required]
+        public List<CloudStockDetail> CloudStock { get; set; }
     }
 }

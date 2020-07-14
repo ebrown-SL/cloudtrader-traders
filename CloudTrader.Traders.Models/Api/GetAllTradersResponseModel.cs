@@ -5,11 +5,11 @@ namespace CloudTrader.Traders.Models.Api
 {
     public class GetAllTradersResponseModel
     {
-        public List<Trader> Traders { get; set; }
+        public List<TraderResponseModel> Traders { get; set; }
 
         public GetAllTradersResponseModel() { }
 
-        public GetAllTradersResponseModel(List<Trader> traders)
+        public GetAllTradersResponseModel(List<TraderResponseModel> traders)
         {
             Traders = traders;
         }

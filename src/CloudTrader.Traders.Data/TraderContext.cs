@@ -11,7 +11,7 @@ namespace CloudTrader.Traders.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase(databaseName: "Traders");
+            optionsBuilder.UseInMemoryDatabase(databaseName: "Traders").EnableSensitiveDataLogging();
         }
     }
 }

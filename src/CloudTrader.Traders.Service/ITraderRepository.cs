@@ -7,8 +7,9 @@ namespace CloudTrader.Traders.Service
     public interface ITraderRepository
     {
         Task<TraderDbModel> SaveTrader(TraderDbModel trader);
-
         Task<TraderDbModel> GetTrader(int id);
         Task<List<TraderDbModel>> GetTraders();
+        Task<TraderDbModel> SetBalance(int id, int balance);
+        Task<List<CloudStockDbModel>> AddTraderMine(int id, int mineId);
     }
 }
