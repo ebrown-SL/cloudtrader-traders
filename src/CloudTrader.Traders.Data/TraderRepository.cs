@@ -23,6 +23,7 @@ namespace CloudTrader.Traders.Data
             {
                 trader.CloudStockDbModels = new List<CloudStockDbModel>();
             }
+            trader.CloudStockDbModels.Add(new CloudStockDbModel { MineId = mineId });
             await _context.SaveChangesAsync();
             return trader;
         }
