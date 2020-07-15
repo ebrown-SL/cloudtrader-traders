@@ -55,7 +55,7 @@ namespace CloudTrader.Traders.Api.Controllers
         [SwaggerOperation(Summary = "Set trader balance", Description = "Set the balance of a trader using their ID")]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found", typeof(TraderNotFoundException))]
-        public async Task<IActionResult> SetBalance(int id, SetTraderBalanceModel balance)
+        public async Task<IActionResult> SetBalance(int id, SetTraderBalanceRequestModel balance)
         {
             var trader = await _traderService.SetBalance(id, balance);
 
@@ -76,7 +76,7 @@ namespace CloudTrader.Traders.Api.Controllers
         [HttpPost("{id}/mines/")]
         [SwaggerOperation(Summary = "Set trader mine stock", Description = "Either creates or updates an existing mine stock for the trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock updated", typeof(GetTraderMinesResponseModel))]
-        public async Task<IActionResult> SetTraderMines(int id, SetTraderMineModel mine)
+        public async Task<IActionResult> SetTraderMines(int id, SetTraderMineRequestModel mine)
         {
             var traderMines = await _traderService.SetTraderMine(id, mine);
 

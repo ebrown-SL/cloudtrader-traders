@@ -1,6 +1,6 @@
 ﻿namespace CloudTrader.Traders.Models.Api
 {
-    public class SetTraderBalanceModel
+    public class SetTraderBalanceRequestModel
     {
         public int Balance { get; set; }
     }
