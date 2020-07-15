@@ -57,8 +57,11 @@ namespace CloudTrader.Traders.Data
 
         public async Task<TraderDbModel> SetBalance(int id, int balance)
         {
-            var trader = await GetTrader(id);
-            trader.Balance = balance;
+            var trader = await _context.Traders.FindAsync(id);
+            if (trader != null)
+            {
+                trader.Balance = balance;
+            }
             await _context.SaveChangesAsync();
             return trader;
         }

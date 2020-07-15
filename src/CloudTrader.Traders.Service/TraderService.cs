@@ -15,7 +15,7 @@ namespace CloudTrader.Traders.Service
         Task<TraderResponseModel> GetTrader(int id);
         Task<GetAllTradersResponseModel> GetTraders();
         Task<GetTraderMinesResponseModel> GetTraderMines(int id);
-        Task<TraderResponseModel> SetBalance(int id, int balance);
+        Task<TraderResponseModel> SetBalance(int id, SetTraderBalanceModel balance);
         Task<CloudStockDetail> GetTraderMine(int id, int mineId);
         Task<GetTraderMinesResponseModel> SetTraderMine(int id, SetTraderMineModel mine);
         Task<GetTraderMinesResponseModel> DeleteTraderMine(int id, int mineId);
@@ -69,15 +69,23 @@ namespace CloudTrader.Traders.Service
             return new GetAllTradersResponseModel(mappedTraders);
         }
 
-        public async Task<TraderResponseModel> SetBalance(int id, int balance)
+        public async Task<TraderResponseModel> SetBalance(int id, SetTraderBalanceModel balance)
         {
-            var trader = await _traderRepository.SetBalance(id, balance);
+            var trader = await _traderRepository.SetBalance(id, balance.Balance);
+            if (trader == null)
+            {
+                throw new TraderNotFoundException(id);
+            }
             return MapFromDbToTraderResponseModel(trader);
         }
 
         public async Task<CloudStockDetail> GetTraderMine(int id, int mineId)
         {
             var trader = await _traderRepository.GetTrader(id);
+            if (trader == null)
+            {
+                throw new TraderNotFoundException(id);
+            }
             var traderMine = trader.CloudStockDbModels.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
             if (traderMine == null)
             {
