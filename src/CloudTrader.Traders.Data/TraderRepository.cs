@@ -16,16 +16,15 @@ namespace CloudTrader.Traders.Data
             _context.Database.EnsureCreated();
         }
 
-        public async Task<List<CloudStockDbModel>> AddTraderMine(int id, int mineId)
+        public async Task<TraderDbModel> AddTraderMine(int id, int mineId)
         {
             var trader = await _context.Traders.FindAsync(id);
-            if (trader.CloudStock == null)
+            if (trader.CloudStockDbModels == null)
             {
-                trader.CloudStock = new List<CloudStockDbModel>();
+                trader.CloudStockDbModels = new List<CloudStockDbModel>();
             }
-            trader.CloudStock.Add(new CloudStockDbModel { MineId = mineId });
             await _context.SaveChangesAsync();
-            return trader.CloudStock;
+            return trader;
         }
 
         public async Task<TraderDbModel> GetTrader(int id)

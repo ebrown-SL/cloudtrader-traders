@@ -11,6 +11,6 @@ namespace CloudTrader.Traders.Models.Data
         [Required]
         public int Balance { get; set; }
 
-        public virtual List<CloudStockDbModel> CloudStock { get; set; }
+        public virtual List<CloudStockDbModel> CloudStockDbModels { get; set; }
     }
 }

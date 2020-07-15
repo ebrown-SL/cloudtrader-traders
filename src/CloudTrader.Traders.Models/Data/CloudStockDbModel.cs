@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CloudTrader.Traders.Models.Data
 {
@@ -15,6 +15,8 @@ namespace CloudTrader.Traders.Models.Data
         [Range(0, int.MaxValue)]
         public int Stock { get; set; }
 
+        [JsonIgnore]
+        public TraderDbModel TraderDbModel { get; set; }
         public int TraderDbModelId { get; set; }
     }
 }

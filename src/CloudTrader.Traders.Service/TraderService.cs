@@ -17,7 +17,7 @@ namespace CloudTrader.Traders.Service
         Task<TraderDbModel> GetTraderMines(int id);
         Task<TraderResponseModel> SetBalance(int id, int balance);
         Task<CloudStockDbModel> GetTraderMine(int id, int mineId);
-        Task<List<CloudStockDbModel>> AddTraderMine(int id, AddTraderMineModel mine);
+        Task<TraderDbModel> AddTraderMine(int id, AddTraderMineModel mine);
     }
 
     public class TraderService : ITraderService
@@ -77,11 +77,11 @@ namespace CloudTrader.Traders.Service
         public async Task<CloudStockDbModel> GetTraderMine(int id, int mineId)
         {
             var trader = await _traderRepository.GetTrader(id);
-            var traderMine = trader.CloudStock.FirstOrDefault(cloudStock => cloudStock.MineId == id);
+            var traderMine = trader.CloudStockDbModels.FirstOrDefault(cloudStock => cloudStock.MineId == id);
             return traderMine;
         }
 
-        public async Task<List<CloudStockDbModel>> AddTraderMine(int id, AddTraderMineModel mine)
+        public async Task<TraderDbModel> AddTraderMine(int id, AddTraderMineModel mine)
         {
             var trader = await _traderRepository.AddTraderMine(id, mine.MineId);
             return trader;

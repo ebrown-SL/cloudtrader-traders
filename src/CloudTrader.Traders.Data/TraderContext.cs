@@ -9,6 +9,8 @@ namespace CloudTrader.Traders.Data
 
         public DbSet<TraderDbModel> Traders { get; set; }
 
+        public DbSet<CloudStockDbModel> CloudStocks { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseInMemoryDatabase(databaseName: "Traders").EnableSensitiveDataLogging();
