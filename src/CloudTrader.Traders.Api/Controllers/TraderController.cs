@@ -57,20 +57,27 @@ namespace CloudTrader.Traders.Api.Controllers
         }
 
         [HttpPost("{id}/mines/")]
-        public async Task<IActionResult> AddTraderMine(int id, AddTraderMineModel mine)
+        public async Task<IActionResult> SetTraderMines(int id, SetTraderMineModel mine)
         {
-            var traderMines = await _traderService.AddTraderMine(id, mine);
+            var traderMines = await _traderService.SetTraderMine(id, mine);
 
             return Created("", traderMines);
         }
 
         [HttpGet("{id}/mines/{mineId}")]
-        public async Task<IActionResult> AddTraderMine(int id, int mineId)
+        public async Task<IActionResult> GetTraderMine(int id, int mineId)
         {
             var traderMine = await _traderService.GetTraderMine(id, mineId);
 
             return Ok(traderMine);
         }
 
+        [HttpDelete("{id}/mines/{mineId}")]
+        public async Task<IActionResult> DeleteTraderMine(int id, int mineId)
+        {
+            var traderMines = await _traderService.DeleteTraderMine(id, mineId);
+
+            return Ok(traderMines);
+        }
     }
 }

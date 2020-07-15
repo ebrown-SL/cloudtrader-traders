@@ -16,7 +16,10 @@ namespace CloudTrader.Traders.Service
                 .ReverseMap();
 
             CreateMap<TraderDbModel, GetTraderMinesResponseModel>()
-                .ForMember(dest => dest.TraderId, act => act.MapFrom(src => src.Id));
+                .ForMember(dest => dest.CloudStock, act => act.MapFrom(src => src.CloudStockDbModels));
+
+            CreateMap<CloudStockDbModel, CloudStockDetail>()
+                .ReverseMap();
         }
     }
 }

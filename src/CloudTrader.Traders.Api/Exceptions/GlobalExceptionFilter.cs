@@ -13,6 +13,9 @@ namespace CloudTrader.Traders.Api.Exceptions
                 case TraderNotFoundException exception:
                     context.Result = new NotFoundObjectResult(exception.Message);
                     break;
+                case MineNotFoundException exception:
+                    context.Result = new NotFoundObjectResult(exception.Message);
+                    break;
                 default:
                     context.Result = new StatusCodeResult(500);
                     break;

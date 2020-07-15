@@ -10,6 +10,7 @@ namespace CloudTrader.Traders.Service
         Task<TraderDbModel> GetTrader(int id);
         Task<List<TraderDbModel>> GetTraders();
         Task<TraderDbModel> SetBalance(int id, int balance);
-        Task<TraderDbModel> AddTraderMine(int id, int mineId);
+        Task<TraderDbModel> SetTraderMine(int id, int mineId, int stock);
+        Task<TraderDbModel> DeleteTraderMine(int id, int mineId);
     }
 }

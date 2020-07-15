@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CloudTrader.Traders.Models.Data;
 using CloudTrader.Traders.Service;
@@ -16,21 +17,28 @@ namespace CloudTrader.Traders.Data
             _context.Database.EnsureCreated();
         }
 
-        public async Task<TraderDbModel> AddTraderMine(int id, int mineId)
+        public async Task<TraderDbModel> SetTraderMine(int id, int mineId, int stock)
         {
-            var trader = await _context.Traders.FindAsync(id);
+            var trader = await GetTrader(id);
             if (trader.CloudStockDbModels == null)
             {
                 trader.CloudStockDbModels = new List<CloudStockDbModel>();
             }
-            trader.CloudStockDbModels.Add(new CloudStockDbModel { MineId = mineId });
+            var existingMine = trader.CloudStockDbModels.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
+            if (existingMine == null)
+            {
+                trader.CloudStockDbModels.Add(new CloudStockDbModel { MineId = mineId, Stock = stock });
+            } else
+            {
+                existingMine.Stock = stock;
+            }
             await _context.SaveChangesAsync();
             return trader;
         }
 
         public async Task<TraderDbModel> GetTrader(int id)
         {
-            var trader = await _context.Traders.FindAsync(id);
+            var trader = await _context.Traders.Include("CloudStockDbModels").FirstOrDefaultAsync(trader => trader.Id == id);
             return trader;
         }
 
@@ -49,8 +57,20 @@ namespace CloudTrader.Traders.Data
 
         public async Task<TraderDbModel> SetBalance(int id, int balance)
         {
-            var trader = await _context.Traders.FindAsync(id);
+            var trader = await GetTrader(id);
             trader.Balance = balance;
+            await _context.SaveChangesAsync();
+            return trader;
+        }
+
+        public async Task<TraderDbModel> DeleteTraderMine(int id, int mineId)
+        {
+            var trader = await GetTrader(id);
+            var traderMine = trader.CloudStockDbModels.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
+            if (traderMine != null)
+            {
+                trader.CloudStockDbModels.Remove(traderMine);
+            }
             await _context.SaveChangesAsync();
             return trader;
         }

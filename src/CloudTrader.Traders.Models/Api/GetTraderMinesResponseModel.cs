@@ -5,8 +5,6 @@ namespace CloudTrader.Traders.Models.Api
 {
     public class GetTraderMinesResponseModel
     {
-        public int TraderId { get; set; }
-
         public List<CloudStockDetail> CloudStock { get; set; }
     }
 }
