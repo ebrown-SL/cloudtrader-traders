@@ -97,6 +97,10 @@ namespace CloudTrader.Traders.Service
         public async Task<GetTraderMinesResponseModel> SetTraderMine(int id, SetTraderMineRequestModel mine)
         {
             var trader = await _traderRepository.SetTraderMine(id, mine.MineId, mine.Stock);
+            if (trader == null)
+            {
+                throw new TraderNotFoundException(id);
+            }
             return _mapper.Map<GetTraderMinesResponseModel>(trader);
         }
 

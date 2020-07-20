@@ -223,5 +223,20 @@ namespace CloudTrader.Traders.Service.Tests
 
             Assert.True(traderMineIdIsCorrect);
         }
+
+        [Test]
+        public void SetTraderMine_TraderNotFound_ThrowsTraderNotFoundException()
+        {
+            var mockTraderRepository = new Mock<ITraderRepository>();
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var mapper = new Mapper(config);
+            var traderService = new TraderService(mockTraderRepository.Object, mapper);
+
+            mockTraderRepository
+                .Setup(mock => mock.SetTraderMine(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync((TraderDbModel)null);
+
+            Assert.ThrowsAsync<TraderNotFoundException>(async () => await traderService.SetTraderMine(1, new SetTraderMineRequestModel { MineId = 1, Stock = 1 }));
+        }
     }
 }
