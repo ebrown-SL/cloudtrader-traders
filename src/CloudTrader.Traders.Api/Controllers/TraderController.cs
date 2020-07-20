@@ -49,7 +49,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Get a trader", 
             Description = "Get a trader by ID from the database")]
         [SwaggerResponse(StatusCodes.Status200OK, "Trader found", typeof(TraderResponseModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found", typeof(TraderNotFoundException))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
         public async Task<IActionResult> GetTrader(int id)
         {
             var trader = await _traderService.GetTrader(id);
@@ -62,7 +62,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Set trader balance", 
             Description = "Set the balance of a trader using their ID")]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found", typeof(TraderNotFoundException))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
         public async Task<IActionResult> SetBalance(int id, SetTraderBalanceRequestModel balance)
         {
             var trader = await _traderService.SetBalance(id, balance);
@@ -75,7 +75,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Get all trader mine stocks", 
             Description = "Returns an object containing an array of the mines and stock owned by a trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mines found", typeof(GetTraderMinesResponseModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found", typeof(TraderNotFoundException))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
         public async Task<IActionResult> GetTraderMines(int id)
         {
             var traderMines = await _traderService.GetTraderMines(id);
@@ -100,7 +100,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Get a trader mine stock",
             Description = "Returns information about a specific mine stock")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStockDetail))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Mine stock not found", typeof(MineNotFoundException))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Mine stock not found")]
         public async Task<IActionResult> GetTraderMine(int id, int mineId)
         {
             var traderMine = await _traderService.GetTraderMine(id, mineId);
