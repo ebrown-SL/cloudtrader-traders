@@ -20,10 +20,7 @@ namespace CloudTrader.Traders.Data
         public async Task<TraderDbModel> SetTraderMine(int id, int mineId, int stock)
         {
             var trader = await GetTrader(id);
-            if (trader.CloudStockDbModels == null)
-            {
-                trader.CloudStockDbModels = new List<CloudStockDbModel>();
-            }
+            trader.CloudStockDbModels ??= new List<CloudStockDbModel>();
             var existingMine = trader.CloudStockDbModels.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
             if (existingMine == null)
             {
@@ -38,7 +35,9 @@ namespace CloudTrader.Traders.Data
 
         public async Task<TraderDbModel> GetTrader(int id)
         {
-            var trader = await _context.Traders.Include("CloudStockDbModels").FirstOrDefaultAsync(trader => trader.Id == id);
+            var trader = await _context.Traders
+                .Include(trader => trader.CloudStockDbModels)
+                .FirstOrDefaultAsync(trader => trader.Id == id);
             return trader;
         }
 
