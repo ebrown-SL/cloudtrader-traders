@@ -20,13 +20,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Data", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Service.Tests", "test\CloudTrader.Traders.Service.Tests\CloudTrader.Traders.Service.Tests.csproj", "{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Data.Tests", "test\CloudTrader.Traders.Data.Tests\CloudTrader.Traders.Data.Tests.csproj", "{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{B36C4EE7-899F-4F11-9995-ACFE20945C72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{606E19BE-6478-4F42-8233-4FB3FF9ACCA9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Models", "src\CloudTrader.Traders.Models\CloudTrader.Traders.Models.csproj", "{3CD22F8E-D5A6-4971-927F-FA9C074211C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Traders.Models.Tests", "Test\CloudTrader.Traders.Models.Test\CloudTrader.Traders.Models.Tests.csproj", "{C6FA190E-0655-45E4-8A0D-EE8966FD5F82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,14 +50,14 @@ Global
 		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3CD22F8E-D5A6-4971-927F-FA9C074211C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3CD22F8E-D5A6-4971-927F-FA9C074211C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CD22F8E-D5A6-4971-927F-FA9C074211C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CD22F8E-D5A6-4971-927F-FA9C074211C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FA190E-0655-45E4-8A0D-EE8966FD5F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FA190E-0655-45E4-8A0D-EE8966FD5F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FA190E-0655-45E4-8A0D-EE8966FD5F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FA190E-0655-45E4-8A0D-EE8966FD5F82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,8 +67,8 @@ Global
 		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B} = {B36C4EE7-899F-4F11-9995-ACFE20945C72}
 		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE} = {B36C4EE7-899F-4F11-9995-ACFE20945C72}
 		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D} = {606E19BE-6478-4F42-8233-4FB3FF9ACCA9}
-		{917291F9-C8FD-40D9-91CA-7FED3BC70B6A} = {606E19BE-6478-4F42-8233-4FB3FF9ACCA9}
 		{3CD22F8E-D5A6-4971-927F-FA9C074211C1} = {B36C4EE7-899F-4F11-9995-ACFE20945C72}
+		{C6FA190E-0655-45E4-8A0D-EE8966FD5F82} = {606E19BE-6478-4F42-8233-4FB3FF9ACCA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB93D1F3-A7F0-402D-82C0-D8EC0453735A}

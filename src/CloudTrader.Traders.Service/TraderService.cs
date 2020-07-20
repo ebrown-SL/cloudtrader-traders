@@ -99,6 +99,7 @@ namespace CloudTrader.Traders.Service
             var trader = await _traderRepository.SetTraderMine(id, mine.MineId, mine.Stock);
             return _mapper.Map<GetTraderMinesResponseModel>(trader);
         }
+
         public async Task<GetTraderMinesResponseModel> DeleteTraderMine(int id, int mineId)
         {
             var trader = await _traderRepository.DeleteTraderMine(id, mineId);

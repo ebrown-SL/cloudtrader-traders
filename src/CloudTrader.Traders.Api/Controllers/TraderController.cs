@@ -63,7 +63,7 @@ namespace CloudTrader.Traders.Api.Controllers
         }
 
         [HttpGet("{id}/mines")]
-        [SwaggerOperation(Summary = "Get trader mine stock", Description = "Returns an object containing an array of the mines and stock owned by a trader")]
+        [SwaggerOperation(Summary = "Get all trader mine stocks", Description = "Returns an object containing an array of the mines and stock owned by a trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mines found", typeof(GetTraderMinesResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found", typeof(TraderNotFoundException))]
         public async Task<IActionResult> GetTraderMines(int id)
@@ -84,7 +84,7 @@ namespace CloudTrader.Traders.Api.Controllers
         }
 
         [HttpGet("{id}/mines/{mineId}")]
-        [SwaggerOperation(Summary = "Get trader mine stock", Description = "Returns information about a specific mine stock")]
+        [SwaggerOperation(Summary = "Get a trader mine stock", Description = "Returns information about a specific mine stock")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStockDetail))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Mine stock not found", typeof(MineNotFoundException))]
         public async Task<IActionResult> GetTraderMine(int id, int mineId)
