@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CloudTrader.Traders.Models.Api;
+using CloudTrader.Traders.Models.Api.Request;
 using CloudTrader.Traders.Models.Data;
 using CloudTrader.Traders.Models.Service;
 using CloudTrader.Traders.Service.Exceptions;
@@ -11,7 +12,7 @@ namespace CloudTrader.Traders.Service
 {
     public interface ITraderService
     {
-        Task<TraderResponseModel> CreateTrader();
+        Task<TraderResponseModel> CreateTrader(CreateTraderRequestModel balance);
         Task<TraderResponseModel> GetTrader(int id);
         Task<GetAllTradersResponseModel> GetTraders();
         Task<GetTraderMinesResponseModel> GetTraderMines(int id);
@@ -34,9 +35,10 @@ namespace CloudTrader.Traders.Service
             _mapper = mapper;
         }
 
-        public async Task<TraderResponseModel> CreateTrader()
+        public async Task<TraderResponseModel> CreateTrader(CreateTraderRequestModel balance)
         {
-            var trader = await _traderRepository.SaveTrader(new TraderDbModel());
+            balance ??= new CreateTraderRequestModel();
+            var trader = await _traderRepository.SaveTrader(new TraderDbModel { Balance = balance.Balance });
 
             return MapFromDbToTraderResponseModel(trader);
         }

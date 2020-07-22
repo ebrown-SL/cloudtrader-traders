@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace CloudTrader.Traders
+namespace CloudTrader.Traders.Api
 {
     public class Startup
     {
@@ -22,7 +22,7 @@ namespace CloudTrader.Traders
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true);
             services.AddScoped<ITraderService, TraderService>();
             services.AddScoped<ITraderRepository, TraderRepository>();
             services.AddAutoMapper(typeof(TraderProfile));

@@ -2,6 +2,7 @@
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Mvc;
 using CloudTrader.Traders.Models.Api;
+using CloudTrader.Traders.Models.Api.Request;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Http;
 using CloudTrader.Traders.Models.Service;
@@ -21,7 +22,7 @@ namespace CloudTrader.Traders.Api.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Get all traders", 
+            Summary = "Get all traders",
             Description = "Returns an object containing an array of all traders")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetAllTradersResponseModel))]
         public async Task<IActionResult> GetTraders()
@@ -33,12 +34,12 @@ namespace CloudTrader.Traders.Api.Controllers
 
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Create a new trader", 
-            Description = "Creates a new trader in the database and returns the new trader")]
+            Summary = "Create a new trader",
+            Description = "Creates a new trader in the database and returns the new trader. Balance is optional.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Trader created", typeof(TraderResponseModel))]
-        public async Task<IActionResult> CreateTrader()
+        public async Task<IActionResult> CreateTrader(CreateTraderRequestModel balance)
         {
-            var trader = await _traderService.CreateTrader();
+            var trader = await _traderService.CreateTrader(balance);
 
             return Created($"/api/trader/{trader.Id}", trader);
         }

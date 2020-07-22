@@ -54,7 +54,7 @@ namespace CloudTrader.Traders.Data
 
         public async Task<TraderDbModel> SaveTrader(TraderDbModel trader)
         {
-            await _context.Traders.AddAsync(trader);
+            _context.Traders.Add(trader);
             await _context.SaveChangesAsync();
             return trader;
         }
