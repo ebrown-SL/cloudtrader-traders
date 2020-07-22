@@ -5,7 +5,6 @@ using CloudTrader.Traders.Models.Api;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Http;
 using CloudTrader.Traders.Models.Service;
-using CloudTrader.Traders.Service.Exceptions;
 
 namespace CloudTrader.Traders.Api.Controllers
 {
