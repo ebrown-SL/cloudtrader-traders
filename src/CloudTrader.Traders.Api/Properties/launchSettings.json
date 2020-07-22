@@ -4,7 +4,9 @@
     "CloudTrader.Traders": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED": "true",
+        "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT": "https://cloudtradervault.vault.azure.net/"
       },
       "applicationUrl": "http://localhost:5999"
     }

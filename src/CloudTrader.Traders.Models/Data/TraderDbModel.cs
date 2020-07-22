@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloudTrader.Traders.Models.Data
 {
     public class TraderDbModel
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public Guid Id { get; set; }
 
         public int Balance { get; set; }
 

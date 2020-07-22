@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace CloudTrader.Traders.Models.Data
@@ -6,7 +7,7 @@ namespace CloudTrader.Traders.Models.Data
     public class CloudStockDbModel
     {
         [JsonIgnore]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public int MineId { get; set; }
 
