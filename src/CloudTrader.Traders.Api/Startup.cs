@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using CloudTrader.Traders.Api.Exceptions;
 using CloudTrader.Traders.Data;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 namespace CloudTrader.Traders.Api
@@ -26,10 +24,7 @@ namespace CloudTrader.Traders.Api
             services.AddScoped<ITraderService, TraderService>();
             services.AddScoped<ITraderRepository, TraderRepository>();
             services.AddAutoMapper(typeof(TraderProfile));
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(new GlobalExceptionFilter());
-            });
+            services.AddMvc();
             services.AddDbContext<TraderContext>();
             services.AddSwaggerGen(c =>
             {
@@ -46,10 +41,7 @@ namespace CloudTrader.Traders.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseExceptionHandler("/error");
 
             app.UseSwagger();
 
