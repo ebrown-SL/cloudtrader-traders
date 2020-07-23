@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
 using CloudTrader.Traders.Models.Api;
+using CloudTrader.Traders.Models.Api.Request;
 using CloudTrader.Traders.Models.Data;
 using CloudTrader.Traders.Service.Exceptions;
 using Moq;
@@ -26,7 +27,7 @@ namespace CloudTrader.Traders.Service.Tests
                 .Setup(mock => mock.SaveTrader(It.IsAny<TraderDbModel>()))
                 .ReturnsAsync(new TraderDbModel { Id = 1, Balance = 0 });
 
-            var trader = await traderService.CreateTrader();
+            var trader = await traderService.CreateTrader(new CreateTraderRequestModel { Balance = 0 });
 
             var validationResults = new List<ValidationResult>();
             var isValid = Validator.TryValidateObject(trader, new System.ComponentModel.DataAnnotations.ValidationContext(trader), validationResults, true);
