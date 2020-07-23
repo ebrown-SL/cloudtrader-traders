@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Http;
 using System;
-using CloudTrader.Traders.Models.POCO;
 using CloudTrader.Traders.Models.Api.Response;
 using CloudTrader.Traders.Models.Api.Request;
 
@@ -101,7 +100,7 @@ namespace CloudTrader.Traders.Api.Controllers
         [SwaggerOperation(
             Summary = "Get a trader mine stock",
             Description = "Returns information about a specific mine stock")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStock))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStockResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Mine stock not found")]
         public async Task<IActionResult> GetTraderMine(Guid id, Guid mineId)
         {
