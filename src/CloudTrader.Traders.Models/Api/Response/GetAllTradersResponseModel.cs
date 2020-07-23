@@ -1,7 +1,6 @@
-﻿using CloudTrader.Traders.Models.Service;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace CloudTrader.Traders.Models.Api
+namespace CloudTrader.Traders.Models.Api.Response
 {
     public class GetAllTradersResponseModel
     {

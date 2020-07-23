@@ -1,7 +1,7 @@
 ﻿using Azure.Core;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using CloudTrader.Traders.Models.Data;
+using CloudTrader.Traders.Models.POCO;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -11,9 +11,9 @@ namespace CloudTrader.Traders.Data
     {
         public TraderContext(DbContextOptions<TraderContext> options) : base(options) { }
 
-        public DbSet<TraderDbModel> Traders { get; set; }
+        public DbSet<Trader> Traders { get; set; }
 
-        public DbSet<CloudStockDbModel> CloudStocks { get; set; }
+        public DbSet<CloudStock> CloudStocks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,6 +38,13 @@ namespace CloudTrader.Traders.Data
                 secretEndpoint.Value,
                 secretKey.Value,
                 databaseName: "CloudTrader");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultContainer("Traders");
+            modelBuilder.Entity<Trader>()
+                .OwnsMany(t => t.CloudStocks);
         }
     }
 }

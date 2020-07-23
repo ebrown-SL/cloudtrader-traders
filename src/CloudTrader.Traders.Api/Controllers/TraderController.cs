@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Mvc;
-using CloudTrader.Traders.Models.Api;
-using CloudTrader.Traders.Models.Api.Request;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Http;
-using CloudTrader.Traders.Models.Service;
 using System;
+using CloudTrader.Traders.Models.POCO;
+using CloudTrader.Traders.Models.Api.Response;
+using CloudTrader.Traders.Models.Api.Request;
+
 
 namespace CloudTrader.Traders.Api.Controllers
 {
@@ -100,9 +101,9 @@ namespace CloudTrader.Traders.Api.Controllers
         [SwaggerOperation(
             Summary = "Get a trader mine stock",
             Description = "Returns information about a specific mine stock")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStockDetail))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStock))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Mine stock not found")]
-        public async Task<IActionResult> GetTraderMine(Guid id, int mineId)
+        public async Task<IActionResult> GetTraderMine(Guid id, Guid mineId)
         {
             var traderMine = await _traderService.GetTraderMine(id, mineId);
 
@@ -114,7 +115,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Remove a trader mine stock", 
             Description = "If the mine stock exists, it is deleted. Returns the altered list of mine stocks")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock updated", typeof(GetTraderMinesResponseModel))]
-        public async Task<IActionResult> DeleteTraderMine(Guid id, int mineId)
+        public async Task<IActionResult> DeleteTraderMine(Guid id, Guid mineId)
         {
             var traderMines = await _traderService.DeleteTraderMine(id, mineId);
 

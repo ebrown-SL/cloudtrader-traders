@@ -1,4 +1,4 @@
-﻿namespace CloudTrader.Traders.Models.Api
+﻿namespace CloudTrader.Traders.Models.Api.Request
 {
     public class SetTraderBalanceRequestModel
     {

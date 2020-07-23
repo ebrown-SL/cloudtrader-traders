@@ -1,10 +1,10 @@
-﻿using CloudTrader.Traders.Models.Service;
+﻿using CloudTrader.Traders.Models.POCO;
 using System.Collections.Generic;
 
-namespace CloudTrader.Traders.Models.Api
+namespace CloudTrader.Traders.Models.Api.Response
 {
     public class GetTraderMinesResponseModel
     {
-        public List<CloudStockDetail> CloudStock { get; set; }
+        public List<CloudStock> CloudStock { get; set; }
     }
 }
