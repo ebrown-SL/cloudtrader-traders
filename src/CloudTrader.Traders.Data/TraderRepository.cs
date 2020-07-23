@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CloudTrader.Traders.Models.Data;
 using CloudTrader.Traders.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,30 +11,75 @@ namespace CloudTrader.Traders.Data
     {
         private readonly TraderContext _context;
 
-        private readonly IMapper _mapper;
-
-        public TraderRepository(IMapper mapper)
+        public TraderRepository(TraderContext context)
         {
-            _mapper = mapper;
-
-            var contextOptions = new DbContextOptionsBuilder<TraderContext>()
-                .UseInMemoryDatabase(databaseName: "Traders")
-                .Options;
-            _context = new TraderContext(contextOptions);
+            _context = context;
+            _context.Database.EnsureCreated();
         }
 
-        public async Task<Trader> GetTrader(int id)
+        public async Task<TraderDbModel> SetTraderMine(int id, int mineId, int stock)
         {
-            var traderDbModel = await _context.Traders.FindAsync(id);
-            var trader = _mapper.Map<Trader>(traderDbModel);
+            var trader = await GetTrader(id);
+            if (trader == null)
+            {
+                return trader;
+            }
+            trader.CloudStockDbModels ??= new List<CloudStockDbModel>();
+            var existingMine = trader.CloudStockDbModels.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
+            if (existingMine == null)
+            {
+                trader.CloudStockDbModels.Add(new CloudStockDbModel { MineId = mineId, Stock = stock });
+            } 
+            else
+            {
+                existingMine.Stock = stock;
+            }
+            await _context.SaveChangesAsync();
             return trader;
         }
 
-        public async Task SaveTrader(Trader trader)
+        public async Task<TraderDbModel> GetTrader(int id)
         {
-            var traderDbModel = _mapper.Map<TraderDbModel>(trader);
-            _context.Traders.Add(traderDbModel);
+            var trader = await _context.Traders
+                .Include(t => t.CloudStockDbModels)
+                .FirstOrDefaultAsync(t => t.Id == id);
+            return trader;
+        }
+
+        public async Task<List<TraderDbModel>> GetTraders()
+        {
+            var traders = await _context.Traders.ToListAsync();
+            return traders;
+        }
+
+        public async Task<TraderDbModel> SaveTrader(TraderDbModel trader)
+        {
+            _context.Traders.Add(trader);
             await _context.SaveChangesAsync();
+            return trader;
+        }
+
+        public async Task<TraderDbModel> SetBalance(int id, int balance)
+        {
+            var trader = await _context.Traders.FindAsync(id);
+            if (trader != null)
+            {
+                trader.Balance = balance;
+            }
+            await _context.SaveChangesAsync();
+            return trader;
+        }
+
+        public async Task<TraderDbModel> DeleteTraderMine(int id, int mineId)
+        {
+            var trader = await GetTrader(id);
+            var traderMine = trader.CloudStockDbModels.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
+            if (traderMine != null)
+            {
+                trader.CloudStockDbModels.Remove(traderMine);
+            }
+            await _context.SaveChangesAsync();
+            return trader;
         }
     }
 }

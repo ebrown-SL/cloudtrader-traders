@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CloudTrader.Traders.Models.Data;
 using NUnit.Framework;
 
-namespace CloudTrader.Traders.Service.Tests
+namespace CloudTrader.Traders.Models.Tests.Data
 {
-    public class TraderTests
+    public class TraderDbModelTests
     {
         [TestCase(null)]
         public void Id_CantBeNull(int id)
         {
-            var trader = new Trader
+            var trader = new TraderDbModel
             {
                 Id = id,
                 Balance = 100
@@ -21,7 +22,7 @@ namespace CloudTrader.Traders.Service.Tests
         [TestCase(null)]
         public void Balance_CantBeNull(int balance)
         {
-            var trader = new Trader
+            var trader = new TraderDbModel
             {
                 Id = 1,
                 Balance = balance
@@ -33,14 +34,14 @@ namespace CloudTrader.Traders.Service.Tests
         [Test]
         public void Balance_Zero_IsValid()
         {
-            var trader = new Trader
+            var trader = new TraderDbModel
             {
                 Id = 1,
                 Balance = 0
             };
 
             var validationResults = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(trader, new ValidationContext(trader), validationResults);
+            var isValid = Validator.TryValidateObject(trader, new ValidationContext(trader), validationResults, true);
 
             Assert.True(isValid);
         }
