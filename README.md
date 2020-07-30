@@ -4,11 +4,7 @@ Traders API for the CloudTrader project.
 
 ## Running locally with Visual Studio
 
-Open the project from the solution file, run, and access the api at `https://localhost:1182`.
-
-### Swagger UI
-
-Once running, access Swagger UI at https://localhost:1182/swagger.
+Open the project from the solution file, run, and access the api at `http://localhost:5999`.
 
 ## Running with docker
 
@@ -18,13 +14,13 @@ Build the image
 
 Start the container
 
-`docker run -p 1182:80 cloudtrader-traders:latest`
+`docker run -p 5999:80 cloudtrader-traders:latest`
 
-Access the api at `http://localhost:1182`
+Access the api at `http://localhost:5999`
 
 ### Swagger UI
 
-Once running, access Swagger UI at https://localhost:1182/swagger.
+Once running, access Swagger UI at http://localhost:5999/swagger.
 
 ## Running unit tests
 
