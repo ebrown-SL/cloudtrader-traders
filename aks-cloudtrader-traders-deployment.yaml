@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudtrader-traders
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudtrader-traders
+  template:
+    metadata:
+      labels:
+        app: cloudtrader-traders
+    spec:
+      containers:
+        - name: cloudtrader-traders
+          image: cloudtrader.azurecr.io/cloudtrader-traders:v1.1
+          ports:
+            - containerPort: 80
