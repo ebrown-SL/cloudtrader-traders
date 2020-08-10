@@ -11,9 +11,15 @@ spec:
     metadata:
       labels:
         app: cloudtrader-traders
+        aadpodidbinding: azure-pod-identity-binding-selector
     spec:
       containers:
         - name: cloudtrader-traders
           image: cloudtrader.azurecr.io/cloudtrader-traders:v1.1
           ports:
             - containerPort: 80
+          env:
+            - name: ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED
+              value: 'true'
+            - name: ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT
+              value: 'https://cloudtradervault.vault.azure.net/'
