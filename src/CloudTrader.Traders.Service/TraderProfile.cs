@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using CloudTrader.Traders.Models.Api;
-using CloudTrader.Traders.Models.Data;
-using CloudTrader.Traders.Models.Service;
+using CloudTrader.Traders.Models.Api.Response;
+using CloudTrader.Traders.Models.POCO;
 
 namespace CloudTrader.Traders.Service
 {
@@ -9,16 +8,13 @@ namespace CloudTrader.Traders.Service
     {
         public TraderProfile()
         {
-            CreateMap<Trader, TraderDbModel>()
+            CreateMap<TraderResponseModel, Trader>()
                 .ReverseMap();
 
-            CreateMap<TraderResponseModel, TraderDbModel>()
-                .ReverseMap();
+            CreateMap<Trader, GetTraderMinesResponseModel>()
+                .ForMember(dest => dest.CloudStock, act => act.MapFrom(src => src.CloudStocks));
 
-            CreateMap<TraderDbModel, GetTraderMinesResponseModel>()
-                .ForMember(dest => dest.CloudStock, act => act.MapFrom(src => src.CloudStockDbModels));
-
-            CreateMap<CloudStockDbModel, CloudStockDetail>()
+            CreateMap<CloudStockResponseModel, CloudStock>()
                 .ReverseMap();
         }
     }

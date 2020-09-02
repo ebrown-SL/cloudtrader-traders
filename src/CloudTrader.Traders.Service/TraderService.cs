@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CloudTrader.Traders.Models.Api;
 using CloudTrader.Traders.Models.Api.Request;
-using CloudTrader.Traders.Models.Data;
-using CloudTrader.Traders.Models.Service;
+using CloudTrader.Traders.Models.Api.Response;
+using CloudTrader.Traders.Models.POCO;
 using CloudTrader.Traders.Service.Exceptions;
 
 namespace CloudTrader.Traders.Service
@@ -13,13 +13,13 @@ namespace CloudTrader.Traders.Service
     public interface ITraderService
     {
         Task<TraderResponseModel> CreateTrader(CreateTraderRequestModel balance);
-        Task<TraderResponseModel> GetTrader(int id);
+        Task<TraderResponseModel> GetTrader(Guid id);
         Task<GetAllTradersResponseModel> GetTraders();
-        Task<GetTraderMinesResponseModel> GetTraderMines(int id);
-        Task<TraderResponseModel> SetBalance(int id, SetTraderBalanceRequestModel balance);
-        Task<CloudStockDetail> GetTraderMine(int id, int mineId);
-        Task<GetTraderMinesResponseModel> SetTraderMine(int id, SetTraderMineRequestModel mine);
-        Task<GetTraderMinesResponseModel> DeleteTraderMine(int id, int mineId);
+        Task<GetTraderMinesResponseModel> GetTraderMines(Guid id);
+        Task<TraderResponseModel> SetBalance(Guid id, SetTraderBalanceRequestModel balance);
+        Task<CloudStockResponseModel> GetTraderMine(Guid id, Guid mineId);
+        Task<GetTraderMinesResponseModel> SetTraderMine(Guid id, SetTraderMineRequestModel mine);
+        Task<GetTraderMinesResponseModel> DeleteTraderMine(Guid id, Guid mineId);
     }
 
     public class TraderService : ITraderService
@@ -38,12 +38,12 @@ namespace CloudTrader.Traders.Service
         public async Task<TraderResponseModel> CreateTrader(CreateTraderRequestModel balance)
         {
             balance ??= new CreateTraderRequestModel();
-            var trader = await _traderRepository.SaveTrader(new TraderDbModel { Balance = balance.Balance });
+            var trader = await _traderRepository.SaveTrader(new Trader { Balance = balance.Balance });
 
             return MapFromDbToTraderResponseModel(trader);
         }
 
-        public async Task<TraderResponseModel> GetTrader(int id)
+        public async Task<TraderResponseModel> GetTrader(Guid id)
         {
             var trader = await _traderRepository.GetTrader(id);
             if (trader == null)
@@ -54,7 +54,7 @@ namespace CloudTrader.Traders.Service
             return MapFromDbToTraderResponseModel(trader);
         }
 
-        public async Task<GetTraderMinesResponseModel> GetTraderMines(int id)
+        public async Task<GetTraderMinesResponseModel> GetTraderMines(Guid id)
         {
             var trader = await _traderRepository.GetTrader(id);
             if (trader == null)
@@ -71,7 +71,7 @@ namespace CloudTrader.Traders.Service
             return new GetAllTradersResponseModel(mappedTraders);
         }
 
-        public async Task<TraderResponseModel> SetBalance(int id, SetTraderBalanceRequestModel balance)
+        public async Task<TraderResponseModel> SetBalance(Guid id, SetTraderBalanceRequestModel balance)
         {
             var trader = await _traderRepository.SetBalance(id, balance.Balance);
             if (trader == null)
@@ -81,22 +81,22 @@ namespace CloudTrader.Traders.Service
             return MapFromDbToTraderResponseModel(trader);
         }
 
-        public async Task<CloudStockDetail> GetTraderMine(int id, int mineId)
+        public async Task<CloudStockResponseModel> GetTraderMine(Guid id, Guid mineId)
         {
             var trader = await _traderRepository.GetTrader(id);
             if (trader == null)
             {
                 throw new TraderNotFoundException(id);
             }
-            var traderMine = trader.CloudStockDbModels.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
+            var traderMine = trader.CloudStocks.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
             if (traderMine == null)
             {
                 throw new MineNotFoundException(mineId, id);
             }
-            return _mapper.Map<CloudStockDetail>(traderMine);
+            return _mapper.Map<CloudStockResponseModel>(traderMine);
         }
 
-        public async Task<GetTraderMinesResponseModel> SetTraderMine(int id, SetTraderMineRequestModel mine)
+        public async Task<GetTraderMinesResponseModel> SetTraderMine(Guid id, SetTraderMineRequestModel mine)
         {
             var trader = await _traderRepository.SetTraderMine(id, mine.MineId, mine.Stock);
             if (trader == null)
@@ -106,13 +106,13 @@ namespace CloudTrader.Traders.Service
             return _mapper.Map<GetTraderMinesResponseModel>(trader);
         }
 
-        public async Task<GetTraderMinesResponseModel> DeleteTraderMine(int id, int mineId)
+        public async Task<GetTraderMinesResponseModel> DeleteTraderMine(Guid id, Guid mineId)
         {
             var trader = await _traderRepository.DeleteTraderMine(id, mineId);
             return _mapper.Map<GetTraderMinesResponseModel>(trader);
         }
 
-        public TraderResponseModel MapFromDbToTraderResponseModel(TraderDbModel dbModel)
+        public TraderResponseModel MapFromDbToTraderResponseModel(Trader dbModel)
         {
             return _mapper.Map<TraderResponseModel>(dbModel);
         }

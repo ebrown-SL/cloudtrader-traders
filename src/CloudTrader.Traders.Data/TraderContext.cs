@@ -1,21 +1,36 @@
-﻿using CloudTrader.Traders.Models.Data;
+﻿using CloudTrader.Traders.Models.POCO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace CloudTrader.Traders.Data
 {
     public class TraderContext : DbContext
     {
-        public TraderContext(DbContextOptions<TraderContext> options) : base(options) { }
 
-        public DbSet<TraderDbModel> Traders { get; set; }
+        private readonly IConfiguration _configuration;
 
-        public DbSet<CloudStockDbModel> CloudStocks { get; set; }
+        public TraderContext(DbContextOptions<TraderContext> options, IConfiguration configuration) : base(options) {
+            _configuration = configuration;
+        }
+
+        public DbSet<Trader> Traders { get; set; }
+
+        public DbSet<CloudStock> CloudStocks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseInMemoryDatabase(databaseName: "Traders")
-                .EnableSensitiveDataLogging();
+                .UseCosmos(
+                _configuration["CosmosEndpoint"],
+                _configuration["CosmosKey"],
+                databaseName: "CloudTrader");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultContainer("Traders");
+            modelBuilder.Entity<Trader>()
+                .OwnsMany(t => t.CloudStocks);
         }
     }
 }

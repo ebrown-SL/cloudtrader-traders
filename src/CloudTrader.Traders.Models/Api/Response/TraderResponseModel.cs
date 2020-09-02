@@ -1,8 +1,10 @@
-﻿namespace CloudTrader.Traders.Models.Api
+﻿using System;
+
+namespace CloudTrader.Traders.Models.Api.Response
 {
     public class TraderResponseModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int Balance { get; set; }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Mvc;
-using CloudTrader.Traders.Models.Api;
-using CloudTrader.Traders.Models.Api.Request;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Http;
-using CloudTrader.Traders.Models.Service;
+using System;
+using CloudTrader.Traders.Models.Api.Response;
+using CloudTrader.Traders.Models.Api.Request;
+
 
 namespace CloudTrader.Traders.Api.Controllers
 {
@@ -50,7 +51,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Description = "Get a trader by ID from the database")]
         [SwaggerResponse(StatusCodes.Status200OK, "Trader found", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> GetTrader(int id)
+        public async Task<IActionResult> GetTrader(Guid id)
         {
             var trader = await _traderService.GetTrader(id);
 
@@ -63,7 +64,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Description = "Set the balance of a trader using their ID")]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> SetBalance(int id, SetTraderBalanceRequestModel balance)
+        public async Task<IActionResult> SetBalance(Guid id, SetTraderBalanceRequestModel balance)
         {
             var trader = await _traderService.SetBalance(id, balance);
 
@@ -76,7 +77,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Description = "Returns an object containing an array of the mines and stock owned by a trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mines found", typeof(GetTraderMinesResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> GetTraderMines(int id)
+        public async Task<IActionResult> GetTraderMines(Guid id)
         {
             var traderMines = await _traderService.GetTraderMines(id);
 
@@ -88,7 +89,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Set trader mine stock", 
             Description = "Either creates or updates an existing mine stock for the trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock updated", typeof(GetTraderMinesResponseModel))]
-        public async Task<IActionResult> SetTraderMines(int id, SetTraderMineRequestModel mine)
+        public async Task<IActionResult> SetTraderMines(Guid id, SetTraderMineRequestModel mine)
         {
             var traderMines = await _traderService.SetTraderMine(id, mine);
 
@@ -99,9 +100,9 @@ namespace CloudTrader.Traders.Api.Controllers
         [SwaggerOperation(
             Summary = "Get a trader mine stock",
             Description = "Returns information about a specific mine stock")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStockDetail))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStockResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Mine stock not found")]
-        public async Task<IActionResult> GetTraderMine(int id, int mineId)
+        public async Task<IActionResult> GetTraderMine(Guid id, Guid mineId)
         {
             var traderMine = await _traderService.GetTraderMine(id, mineId);
 
@@ -113,7 +114,7 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Remove a trader mine stock", 
             Description = "If the mine stock exists, it is deleted. Returns the altered list of mine stocks")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock updated", typeof(GetTraderMinesResponseModel))]
-        public async Task<IActionResult> DeleteTraderMine(int id, int mineId)
+        public async Task<IActionResult> DeleteTraderMine(Guid id, Guid mineId)
         {
             var traderMines = await _traderService.DeleteTraderMine(id, mineId);
 
