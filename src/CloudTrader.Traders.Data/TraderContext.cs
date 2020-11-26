@@ -6,10 +6,10 @@ namespace CloudTrader.Traders.Data
 {
     public class TraderContext : DbContext
     {
-
         private readonly IConfiguration _configuration;
 
-        public TraderContext(DbContextOptions<TraderContext> options, IConfiguration configuration) : base(options) {
+        public TraderContext(DbContextOptions<TraderContext> options, IConfiguration configuration) : base(options)
+        {
             _configuration = configuration;
         }
 

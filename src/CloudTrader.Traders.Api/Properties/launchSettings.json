@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/launchsettings.json",
-   "profiles": {
+  "profiles": {
     "CloudTrader.Traders": {
       "commandName": "Project",
       "environmentVariables": {

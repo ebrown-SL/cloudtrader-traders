@@ -1,24 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CloudTrader.Traders.Models.Api.Request;
 using CloudTrader.Traders.Models.Api.Response;
 using CloudTrader.Traders.Models.POCO;
 using CloudTrader.Traders.Service.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Traders.Service
 {
     public interface ITraderService
     {
         Task<TraderResponseModel> CreateTrader(CreateTraderRequestModel balance);
+
         Task<TraderResponseModel> GetTrader(Guid id);
+
         Task<GetAllTradersResponseModel> GetTraders();
+
         Task<GetTraderMinesResponseModel> GetTraderMines(Guid id);
+
         Task<TraderResponseModel> SetBalance(Guid id, SetTraderBalanceRequestModel balance);
+
         Task<CloudStockResponseModel> GetTraderMine(Guid id, Guid mineId);
+
         Task<GetTraderMinesResponseModel> SetTraderMine(Guid id, SetTraderMineRequestModel mine);
+
         Task<GetTraderMinesResponseModel> DeleteTraderMine(Guid id, Guid mineId);
     }
 

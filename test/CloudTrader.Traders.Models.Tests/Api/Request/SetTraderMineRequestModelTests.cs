@@ -8,8 +8,7 @@ namespace CloudTrader.Traders.Models.Tests.Api.Request
 {
     public class SetTraderMineRequestModelTests
     {
-
-        Guid guid = new Guid();
+        private Guid guid = new Guid();
 
         [TestCase(0, ExpectedResult = true)]
         [TestCase(-1, ExpectedResult = false)]
