@@ -71,6 +71,18 @@ namespace CloudTrader.Traders.Data
             return trader;
         }
 
+        public async Task<Trader> UpdateBalance(Guid id, int amount)
+        {
+            var trader = await _context.Traders.FindAsync(id);
+            if (trader != null)
+            {
+                var newBalance = trader.Balance + amount;
+                trader.Balance = newBalance;
+            }
+            await _context.SaveChangesAsync();
+            return trader;
+        }
+
         public async Task<Trader> DeleteTraderMine(Guid id, Guid mineId)
         {
             var trader = await GetTrader(id);

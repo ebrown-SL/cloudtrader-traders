@@ -71,6 +71,20 @@ namespace CloudTrader.Traders.Api.Controllers
             return Ok(trader);
         }
 
+        [HttpPatch("{id}/balance")]
+        [SwaggerOperation(
+            Summary = "Update a trader's balance",
+            Description = "Update a trader's balance with given amount"
+            )]
+        [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
+        public async Task<IActionResult> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel amount)
+        {
+            var trader = await _traderService.UpdateBalance(id, amount);
+
+            return Ok(trader);
+        }
+
         [HttpGet("{id}/mines")]
         [SwaggerOperation(
             Summary = "Get all trader mine stocks", 
