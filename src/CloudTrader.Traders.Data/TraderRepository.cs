@@ -52,6 +52,20 @@ namespace CloudTrader.Traders.Data
             return traders;
         }
 
+        public async Task<List<Trader>> GetTradersByMineId(Guid mineId)
+        {
+            var traders = await _context.Traders.ToListAsync();
+
+            var filteredTraders =
+                (from t in traders
+                 from c in t.CloudStocks
+                 where c.MineId == mineId
+                 select t)
+                .ToList();
+
+            return filteredTraders;
+        }
+
         public async Task<Trader> SaveTrader(Trader trader)
         {
             trader.Id = new Guid();

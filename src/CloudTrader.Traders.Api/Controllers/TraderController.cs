@@ -33,6 +33,19 @@ namespace CloudTrader.Traders.Api.Controllers
             return Ok(traders);
         }
 
+        [HttpGet("mines/{mineId}")]
+        [SwaggerOperation(
+            Summary = "Get all traders by mine id",
+            Description = "Returns all traders with stock in a given mine")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetTradersByMineIdResponseModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Traders not found")]
+        public async Task<IActionResult> GetTradersByMineId(Guid mineId)
+        {
+            var traders = await _traderService.GetTradersByMineId(mineId);
+
+            return Ok(traders);
+        }
+
         [HttpPost]
         [SwaggerOperation(
             Summary = "Create a new trader",
