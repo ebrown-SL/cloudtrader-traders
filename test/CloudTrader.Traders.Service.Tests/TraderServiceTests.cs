@@ -174,6 +174,42 @@ namespace CloudTrader.Traders.Service.Tests
         }
 
         [Test]
+        public void UpdateBalance_TraderDoesNotExist_ThrowsTraderNotFoundException()
+        {
+            var mockedTraderRepository = new Mock<ITraderRepository>();
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var mapper = new Mapper(config);
+            var traderService = new TraderService(mockedTraderRepository.Object, mapper);
+
+            mockedTraderRepository
+                .Setup(mock => mock.UpdateBalance(It.IsAny<Guid>(), It.IsAny<int>()))
+                .ReturnsAsync((Trader) null);
+
+            Assert.ThrowsAsync<TraderNotFoundException>(async () => await traderService.UpdateBalance(new Guid(), new UpdateTraderBalanceRequestModel() { Amount = 20 }));
+        }
+
+        [Test]
+        public async Task UpdateBalance_TraderExists_ReturnsWithUpdatedBalance()
+        {
+            var mockedTraderRepository = new Mock<ITraderRepository>();
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(profile));
+            var mapper = new Mapper(config);
+            var traderService = new TraderService(mockedTraderRepository.Object, mapper);
+
+            var traderGuid = new Guid();
+            mockedTraderRepository
+                .Setup(mock => mock.UpdateBalance(It.Is<Guid>(i => i == traderGuid), It.Is<int>(amt => amt == 20)))
+                .ReturnsAsync(new Trader { Id = traderGuid, Balance = 100 });
+
+            var updatedTraderBalance = await traderService
+                .UpdateBalance(traderGuid, new UpdateTraderBalanceRequestModel() { Amount = 20 });
+            var correctBalance = updatedTraderBalance.Balance == 100;
+
+            Assert.True(correctBalance);
+
+        }
+
+        [Test]
         public void GetTraderMine_TraderDoesNotExist_ThrowsTraderNotFoundException()
         {
             var mockTraderRepository = new Mock<ITraderRepository>();
