@@ -197,15 +197,20 @@ namespace CloudTrader.Traders.Service.Tests
             var traderService = new TraderService(mockedTraderRepository.Object, mapper);
 
             var traderGuid = new Guid();
+            var trader = new Trader() { Id = traderGuid, Balance = 80 };
+
+            mockedTraderRepository
+                .Setup(mock => mock.GetTrader(traderGuid))
+                .ReturnsAsync(trader);
             mockedTraderRepository
                 .Setup(mock => mock.UpdateBalance(It.Is<Guid>(i => i == traderGuid), It.Is<int>(amt => amt == 20)))
-                .ReturnsAsync(new Trader { Id = traderGuid, Balance = 100 });
+                .ReturnsAsync(new Trader() { Id = traderGuid, Balance = 100});
 
-            var updatedTraderBalance = await traderService
+            var updatedTrader = await traderService
                 .UpdateBalance(traderGuid, new UpdateTraderBalanceRequestModel() { Amount = 20 });
-            var correctBalance = updatedTraderBalance.Balance == 100;
+            var updatedBalance = updatedTrader.Balance == 100;
 
-            Assert.True(correctBalance);
+            Assert.True(updatedBalance);
 
         }
 
