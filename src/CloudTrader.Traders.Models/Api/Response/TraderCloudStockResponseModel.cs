@@ -7,7 +7,7 @@ namespace CloudTrader.Traders.Models.Api.Response
     public class TraderCloudStockResponseModel
     {
         public Guid Id { get; set; }
-        public int Balance { get; set; }
-        public List<CloudStock> CloudStock { get; set; }
+        public Guid MineId { get; set; }
+        public int Stock { get; set; }
     }
 }

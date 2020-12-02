@@ -54,13 +54,11 @@ namespace CloudTrader.Traders.Data
 
         public async Task<List<Trader>> GetTradersByMineId(Guid mineId)
         {
-            var traders = await _context.Traders.ToListAsync();
+            var traders = await _context.Traders
+                .ToListAsync();
 
-            var filteredTraders =
-                (from t in traders
-                 from c in t.CloudStocks
-                 where c.MineId == mineId
-                 select t)
+            var filteredTraders = traders
+                .Where(t => t.CloudStocks.Any(s => s.MineId == mineId))
                 .ToList();
 
             return filteredTraders;

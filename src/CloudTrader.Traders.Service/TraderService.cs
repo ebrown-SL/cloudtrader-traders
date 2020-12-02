@@ -10,20 +10,6 @@ using CloudTrader.Traders.Service.Exceptions;
 
 namespace CloudTrader.Traders.Service
 {
-    public interface ITraderService
-    {
-        Task<TraderResponseModel> CreateTrader(CreateTraderRequestModel balance);
-        Task<TraderResponseModel> GetTrader(Guid id);
-        Task<GetAllTradersResponseModel> GetTraders();
-        Task<GetTradersByMineIdResponseModel> GetTradersByMineId(Guid mineId);
-        Task<GetTraderMinesResponseModel> GetTraderMines(Guid id);
-        Task<TraderResponseModel> SetBalance(Guid id, SetTraderBalanceRequestModel balance);
-        Task<TraderResponseModel> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel amount);
-        Task<CloudStockResponseModel> GetTraderMine(Guid id, Guid mineId);
-        Task<GetTraderMinesResponseModel> SetTraderMine(Guid id, SetTraderMineRequestModel mine);
-        Task<GetTraderMinesResponseModel> DeleteTraderMine(Guid id, Guid mineId);
-    }
-
     public class TraderService : ITraderService
     {
         private readonly ITraderRepository _traderRepository;
@@ -76,7 +62,11 @@ namespace CloudTrader.Traders.Service
         public async Task<GetTradersByMineIdResponseModel> GetTradersByMineId(Guid mineId)
         {
             var traders = await _traderRepository.GetTradersByMineId(mineId);
-            var mappedTraders = _mapper.Map<List<TraderCloudStockResponseModel>>(traders);
+            var mappedTraders = traders.Select(t => new TraderCloudStockResponseModel() { 
+                Id = t.Id,
+                MineId = t.CloudStocks.First(s => s.MineId == mineId).MineId,
+                Stock = t.CloudStocks.First(s => s.MineId == mineId).Stock
+            }).ToList();
             return new GetTradersByMineIdResponseModel(mappedTraders);
         }
 

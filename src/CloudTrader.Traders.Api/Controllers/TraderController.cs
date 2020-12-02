@@ -38,7 +38,6 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Get all traders by mine id",
             Description = "Returns all traders with stock in a given mine")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetTradersByMineIdResponseModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Traders not found")]
         public async Task<IActionResult> GetTradersByMineId(Guid mineId)
         {
             var traders = await _traderService.GetTradersByMineId(mineId);
@@ -86,8 +85,9 @@ namespace CloudTrader.Traders.Api.Controllers
 
         [HttpPatch("{id}/balance")]
         [SwaggerOperation(
-            Summary = "Update a trader's balance",
-            Description = "Update a trader's balance with given amount"
+            Summary = "Incremente or decrement a trader's current balance",
+            Description = "Returns the trader's updated balance - either incremented (provided amount is positive)" +
+            " or decremented (provided amount is negative)"
             )]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
