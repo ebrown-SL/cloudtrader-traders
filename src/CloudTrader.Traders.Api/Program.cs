@@ -35,6 +35,5 @@ namespace CloudTrader.Traders.Api
                 });
 
         private static string GetKeyVaultEndpoint() => "https://cloudtradervault.vault.azure.net";
-
     }
 }

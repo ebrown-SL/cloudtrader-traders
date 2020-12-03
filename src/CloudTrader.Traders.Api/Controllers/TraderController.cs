@@ -1,12 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using CloudTrader.Traders.Models.Api.Request;
+using CloudTrader.Traders.Models.Api.Response;
 using CloudTrader.Traders.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Http;
 using System;
-using CloudTrader.Traders.Models.Api.Response;
-using CloudTrader.Traders.Models.Api.Request;
-
+using System.Threading.Tasks;
 
 namespace CloudTrader.Traders.Api.Controllers
 {
@@ -59,7 +58,7 @@ namespace CloudTrader.Traders.Api.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Get a trader", 
+            Summary = "Get a trader",
             Description = "Get a trader by ID from the database")]
         [SwaggerResponse(StatusCodes.Status200OK, "Trader found", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
@@ -72,7 +71,7 @@ namespace CloudTrader.Traders.Api.Controllers
 
         [HttpPut("{id}/balance")]
         [SwaggerOperation(
-            Summary = "Set trader balance", 
+            Summary = "Set trader balance",
             Description = "Set the balance of a trader using their ID")]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
@@ -91,16 +90,16 @@ namespace CloudTrader.Traders.Api.Controllers
             )]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel amount)
+        public async Task<IActionResult> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel amountToAdd)
         {
-            var trader = await _traderService.UpdateBalance(id, amount);
+            var trader = await _traderService.UpdateBalance(id, amountToAdd);
 
             return Ok(trader);
         }
 
         [HttpGet("{id}/mines")]
         [SwaggerOperation(
-            Summary = "Get all trader mine stocks", 
+            Summary = "Get all trader mine stocks",
             Description = "Returns an object containing an array of the mines and stock owned by a trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mines found", typeof(GetTraderMinesResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
@@ -113,7 +112,7 @@ namespace CloudTrader.Traders.Api.Controllers
 
         [HttpPost("{id}/mines/")]
         [SwaggerOperation(
-            Summary = "Set trader mine stock", 
+            Summary = "Set trader mine stock",
             Description = "Either creates or updates an existing mine stock for the trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock updated", typeof(GetTraderMinesResponseModel))]
         public async Task<IActionResult> SetTraderMines(Guid id, SetTraderMineRequestModel mine)
@@ -138,7 +137,7 @@ namespace CloudTrader.Traders.Api.Controllers
 
         [HttpDelete("{id}/mines/{mineId}")]
         [SwaggerOperation(
-            Summary = "Remove a trader mine stock", 
+            Summary = "Remove a trader mine stock",
             Description = "If the mine stock exists, it is deleted. Returns the altered list of mine stocks")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock updated", typeof(GetTraderMinesResponseModel))]
         public async Task<IActionResult> DeleteTraderMine(Guid id, Guid mineId)

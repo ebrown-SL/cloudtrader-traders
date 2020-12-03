@@ -6,7 +6,9 @@ namespace CloudTrader.Traders.Models.Api.Response
     {
         public List<TraderResponseModel> Traders { get; set; }
 
-        public GetAllTradersResponseModel() { }
+        public GetAllTradersResponseModel()
+        {
+        }
 
         public GetAllTradersResponseModel(List<TraderResponseModel> traders)
         {

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CloudTrader.Traders.Models.POCO;
+using CloudTrader.Traders.Service;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CloudTrader.Traders.Models.POCO;
-using CloudTrader.Traders.Service;
-using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Traders.Data
 {
@@ -29,8 +29,8 @@ namespace CloudTrader.Traders.Data
             var existingMine = trader.CloudStocks.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
             if (existingMine == null)
             {
-                trader.CloudStocks.Add(new CloudStock { MineId = mineId, Stock = stock }) ;
-            } 
+                trader.CloudStocks.Add(new CloudStock { MineId = mineId, Stock = stock });
+            }
             else
             {
                 existingMine.Stock = stock;

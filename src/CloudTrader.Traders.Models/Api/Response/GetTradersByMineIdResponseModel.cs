@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace CloudTrader.Traders.Models.Api.Response
 {
@@ -8,7 +6,9 @@ namespace CloudTrader.Traders.Models.Api.Response
     {
         public List<TraderCloudStockResponseModel> Traders { get; set; }
 
-        public GetTradersByMineIdResponseModel() { }
+        public GetTradersByMineIdResponseModel()
+        {
+        }
 
         public GetTradersByMineIdResponseModel(List<TraderCloudStockResponseModel> traders)
         {

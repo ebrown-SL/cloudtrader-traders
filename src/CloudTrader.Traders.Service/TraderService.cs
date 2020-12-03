@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CloudTrader.Traders.Models.Api.Request;
 using CloudTrader.Traders.Models.Api.Response;
 using CloudTrader.Traders.Models.POCO;
 using CloudTrader.Traders.Service.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Traders.Service
 {
@@ -62,11 +62,9 @@ namespace CloudTrader.Traders.Service
         public async Task<GetTradersByMineIdResponseModel> GetTradersByMineId(Guid mineId)
         {
             var traders = await _traderRepository.GetTradersByMineId(mineId);
-            var mappedTraders = traders.Select(t => new TraderCloudStockResponseModel() { 
-                Id = t.Id,
-                MineId = t.CloudStocks.First(s => s.MineId == mineId).MineId,
-                Stock = t.CloudStocks.First(s => s.MineId == mineId).Stock
-            }).ToList();
+            var mappedTraders = traders
+                .Select(t => new TraderCloudStockResponseModel(t, mineId))
+                .ToList();
             return new GetTradersByMineIdResponseModel(mappedTraders);
         }
 
@@ -82,7 +80,7 @@ namespace CloudTrader.Traders.Service
 
         public async Task<TraderResponseModel> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel amount)
         {
-            var trader = await _traderRepository.UpdateBalance(id, amount.Amount);
+            var trader = await _traderRepository.UpdateBalance(id, amount.AmountToAdd);
             if (trader == null)
             {
                 throw new TraderNotFoundException(id);
