@@ -52,6 +52,18 @@ namespace CloudTrader.Traders.Data
             return traders;
         }
 
+        public async Task<List<Trader>> GetTradersByMineId(Guid mineId)
+        {
+            var traders = await _context.Traders
+                .ToListAsync();
+
+            var filteredTraders = traders
+                .Where(t => t.CloudStocks.Any(s => s.MineId == mineId))
+                .ToList();
+
+            return filteredTraders;
+        }
+
         public async Task<Trader> SaveTrader(Trader trader)
         {
             trader.Id = new Guid();
@@ -66,6 +78,18 @@ namespace CloudTrader.Traders.Data
             if (trader != null)
             {
                 trader.Balance = balance;
+            }
+            await _context.SaveChangesAsync();
+            return trader;
+        }
+
+        public async Task<Trader> UpdateBalance(Guid id, int amount)
+        {
+            var trader = await _context.Traders.FindAsync(id);
+            if (trader != null)
+            {
+                var newBalance = trader.Balance + amount;
+                trader.Balance = newBalance;
             }
             await _context.SaveChangesAsync();
             return trader;

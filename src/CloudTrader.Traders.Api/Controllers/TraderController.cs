@@ -32,6 +32,18 @@ namespace CloudTrader.Traders.Api.Controllers
             return Ok(traders);
         }
 
+        [HttpGet("mines/{mineId}")]
+        [SwaggerOperation(
+            Summary = "Get all traders by mine id",
+            Description = "Returns all traders with stock in a given mine")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetTradersByMineIdResponseModel))]
+        public async Task<IActionResult> GetTradersByMineId(Guid mineId)
+        {
+            var traders = await _traderService.GetTradersByMineId(mineId);
+
+            return Ok(traders);
+        }
+
         [HttpPost]
         [SwaggerOperation(
             Summary = "Create a new trader",
@@ -66,6 +78,21 @@ namespace CloudTrader.Traders.Api.Controllers
         public async Task<IActionResult> SetBalance(Guid id, SetTraderBalanceRequestModel balance)
         {
             var trader = await _traderService.SetBalance(id, balance);
+
+            return Ok(trader);
+        }
+
+        [HttpPatch("{id}/balance")]
+        [SwaggerOperation(
+            Summary = "Incremente or decrement a trader's current balance",
+            Description = "Returns the trader's updated balance - either incremented (provided amount is positive)" +
+            " or decremented (provided amount is negative)"
+            )]
+        [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
+        public async Task<IActionResult> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel amountToAdd)
+        {
+            var trader = await _traderService.UpdateBalance(id, amountToAdd);
 
             return Ok(trader);
         }

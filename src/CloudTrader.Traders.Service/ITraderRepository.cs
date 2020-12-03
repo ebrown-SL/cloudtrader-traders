@@ -13,7 +13,11 @@ namespace CloudTrader.Traders.Service
 
         Task<List<Trader>> GetTraders();
 
+        Task<List<Trader>> GetTradersByMineId(Guid mineId);
+
         Task<Trader> SetBalance(Guid id, int balance);
+
+        Task<Trader> UpdateBalance(Guid id, int amount);
 
         Task<Trader> SetTraderMine(Guid id, Guid mineId, int stock);
 

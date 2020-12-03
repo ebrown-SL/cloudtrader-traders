@@ -10,25 +10,6 @@ using System.Threading.Tasks;
 
 namespace CloudTrader.Traders.Service
 {
-    public interface ITraderService
-    {
-        Task<TraderResponseModel> CreateTrader(CreateTraderRequestModel balance);
-
-        Task<TraderResponseModel> GetTrader(Guid id);
-
-        Task<GetAllTradersResponseModel> GetTraders();
-
-        Task<GetTraderMinesResponseModel> GetTraderMines(Guid id);
-
-        Task<TraderResponseModel> SetBalance(Guid id, SetTraderBalanceRequestModel balance);
-
-        Task<CloudStockResponseModel> GetTraderMine(Guid id, Guid mineId);
-
-        Task<GetTraderMinesResponseModel> SetTraderMine(Guid id, SetTraderMineRequestModel mine);
-
-        Task<GetTraderMinesResponseModel> DeleteTraderMine(Guid id, Guid mineId);
-    }
-
     public class TraderService : ITraderService
     {
         private readonly ITraderRepository _traderRepository;
@@ -78,9 +59,28 @@ namespace CloudTrader.Traders.Service
             return new GetAllTradersResponseModel(mappedTraders);
         }
 
+        public async Task<GetTradersByMineIdResponseModel> GetTradersByMineId(Guid mineId)
+        {
+            var traders = await _traderRepository.GetTradersByMineId(mineId);
+            var mappedTraders = traders
+                .Select(t => new TraderCloudStockResponseModel(t, mineId))
+                .ToList();
+            return new GetTradersByMineIdResponseModel(mappedTraders);
+        }
+
         public async Task<TraderResponseModel> SetBalance(Guid id, SetTraderBalanceRequestModel balance)
         {
             var trader = await _traderRepository.SetBalance(id, balance.Balance);
+            if (trader == null)
+            {
+                throw new TraderNotFoundException(id);
+            }
+            return MapFromDbToTraderResponseModel(trader);
+        }
+
+        public async Task<TraderResponseModel> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel amount)
+        {
+            var trader = await _traderRepository.UpdateBalance(id, amount.AmountToAdd);
             if (trader == null)
             {
                 throw new TraderNotFoundException(id);
