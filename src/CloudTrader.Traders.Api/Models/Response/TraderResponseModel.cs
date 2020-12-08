@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CloudTrader.Traders.Models.Api.Response
+namespace CloudTrader.Traders.Api.Models.Response
 {
     public class TraderResponseModel
     {

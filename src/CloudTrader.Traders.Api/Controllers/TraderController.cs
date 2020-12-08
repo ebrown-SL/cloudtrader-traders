@@ -1,10 +1,13 @@
-﻿using CloudTrader.Traders.Models.Api.Request;
-using CloudTrader.Traders.Models.Api.Response;
+﻿using AutoMapper;
+using CloudTrader.Traders.Api.Models.Request;
+using CloudTrader.Traders.Api.Models.Response;
+using CloudTrader.Traders.Domain.Models;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CloudTrader.Traders.Api.Controllers
@@ -13,11 +16,13 @@ namespace CloudTrader.Traders.Api.Controllers
     [ApiController]
     public class TraderController : ControllerBase
     {
-        private readonly ITraderService _traderService;
+        private readonly IMapper mapper;
+        private readonly ITraderService traderService;
 
-        public TraderController(ITraderService traderService)
+        public TraderController(IMapper mapper, ITraderService traderService)
         {
-            _traderService = traderService;
+            this.mapper = mapper;
+            this.traderService = traderService;
         }
 
         [HttpGet]
@@ -27,9 +32,10 @@ namespace CloudTrader.Traders.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetAllTradersResponseModel))]
         public async Task<IActionResult> GetTraders()
         {
-            var traders = await _traderService.GetTraders();
+            var traders = await traderService.GetTraders();
+            var mappedTraders = mapper.Map<List<TraderResponseModel>>(traders);
 
-            return Ok(traders);
+            return Ok(new GetAllTradersResponseModel(mappedTraders));
         }
 
         [HttpGet("mines/{mineId}")]
@@ -39,9 +45,10 @@ namespace CloudTrader.Traders.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetTradersByMineIdResponseModel))]
         public async Task<IActionResult> GetTradersByMineId(Guid mineId)
         {
-            var traders = await _traderService.GetTradersByMineId(mineId);
+            var traderStockInLocation = await traderService.GetTradersByMineId(mineId);
+            var mappedTraderStocks = mapper.Map<List<TraderCloudStockResponseModel>>(traderStockInLocation);
 
-            return Ok(traders);
+            return Ok(new GetTradersByMineIdResponseModel(mappedTraderStocks));
         }
 
         [HttpPost]
@@ -49,40 +56,40 @@ namespace CloudTrader.Traders.Api.Controllers
             Summary = "Create a new trader",
             Description = "Creates a new trader in the database and returns the new trader. Balance is optional.")]
         [SwaggerResponse(StatusCodes.Status201Created, "Trader created", typeof(TraderResponseModel))]
-        public async Task<IActionResult> CreateTrader(CreateTraderRequestModel balance)
+        public async Task<IActionResult> CreateTrader(CreateTraderRequestModel body)
         {
-            var trader = await _traderService.CreateTrader(balance);
+            var trader = await traderService.CreateTrader(body.Balance);
 
-            return Created($"/api/trader/{trader.Id}", trader);
+            return Created($"/api/trader/{trader.Id}", MapFromDbToTraderResponseModel(trader));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{traderId}")]
         [SwaggerOperation(
             Summary = "Get a trader",
             Description = "Get a trader by ID from the database")]
         [SwaggerResponse(StatusCodes.Status200OK, "Trader found", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> GetTrader(Guid id)
+        public async Task<IActionResult> GetTrader(Guid traderId)
         {
-            var trader = await _traderService.GetTrader(id);
+            var trader = await traderService.GetTrader(traderId);
 
-            return Ok(trader);
+            return Ok(MapFromDbToTraderResponseModel(trader));
         }
 
-        [HttpPut("{id}/balance")]
+        [HttpPut("{traderId}/balance")]
         [SwaggerOperation(
             Summary = "Set trader balance",
             Description = "Set the balance of a trader using their ID")]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> SetBalance(Guid id, SetTraderBalanceRequestModel balance)
+        public async Task<IActionResult> SetBalance(Guid traderId, SetTraderBalanceRequestModel body)
         {
-            var trader = await _traderService.SetBalance(id, balance);
+            var trader = await traderService.SetBalance(traderId, body.Balance);
 
-            return Ok(trader);
+            return Ok(MapFromDbToTraderResponseModel(trader));
         }
 
-        [HttpPatch("{id}/balance")]
+        [HttpPatch("{traderId}/balance")]
         [SwaggerOperation(
             Summary = "Incremente or decrement a trader's current balance",
             Description = "Returns the trader's updated balance - either incremented (provided amount is positive)" +
@@ -90,61 +97,69 @@ namespace CloudTrader.Traders.Api.Controllers
             )]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel amountToAdd)
+        public async Task<IActionResult> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel body)
         {
-            var trader = await _traderService.UpdateBalance(id, amountToAdd);
+            var trader = await traderService.UpdateBalance(id, body.AmountToAdd);
 
-            return Ok(trader);
+            return Ok(MapFromDbToTraderResponseModel(trader));
         }
 
-        [HttpGet("{id}/mines")]
+        [HttpGet("{traderId}/mines")]
         [SwaggerOperation(
             Summary = "Get all trader mine stocks",
             Description = "Returns an object containing an array of the mines and stock owned by a trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mines found", typeof(GetTraderMinesResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> GetTraderMines(Guid id)
+        public async Task<IActionResult> GetTraderMines(Guid traderId)
         {
-            var traderMines = await _traderService.GetTraderMines(id);
+            var traderMines = await traderService.GetTraderMines(traderId);
+            var mappedMines = mapper.Map<GetTraderMinesResponseModel>(traderMines);
 
-            return Ok(traderMines);
+            return Ok(mappedMines);
         }
 
-        [HttpPost("{id}/mines/")]
+        [HttpPost("{traderId}/mines/")]
         [SwaggerOperation(
             Summary = "Set trader mine stock",
             Description = "Either creates or updates an existing mine stock for the trader")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock updated", typeof(GetTraderMinesResponseModel))]
-        public async Task<IActionResult> SetTraderMines(Guid id, SetTraderMineRequestModel mine)
+        public async Task<IActionResult> SetTraderMines(Guid traderId, SetTraderMineRequestModel body)
         {
-            var traderMines = await _traderService.SetTraderMine(id, mine);
+            var traderMines = await traderService.SetTraderMine(traderId, body.MineId, body.Stock);
 
             return Ok(traderMines);
         }
 
-        [HttpGet("{id}/mines/{mineId}")]
+        [HttpGet("{traderId}/mines/{mineId}")]
         [SwaggerOperation(
             Summary = "Get a trader mine stock",
             Description = "Returns information about a specific mine stock")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock found", typeof(CloudStockResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Mine stock not found")]
-        public async Task<IActionResult> GetTraderMine(Guid id, Guid mineId)
+        public async Task<IActionResult> GetTraderMine(Guid traderId, Guid mineId)
         {
-            var traderMine = await _traderService.GetTraderMine(id, mineId);
+            var traderMine = await traderService.GetTraderMine(traderId, mineId);
+            var mappedMines = mapper.Map<GetTraderMinesResponseModel>(traderMine);
 
-            return Ok(traderMine);
+            return Ok(mappedMines);
         }
 
-        [HttpDelete("{id}/mines/{mineId}")]
+        [HttpDelete("{traderId}/mines/{mineId}")]
         [SwaggerOperation(
             Summary = "Remove a trader mine stock",
             Description = "If the mine stock exists, it is deleted. Returns the altered list of mine stocks")]
         [SwaggerResponse(StatusCodes.Status200OK, "Mine stock updated", typeof(GetTraderMinesResponseModel))]
-        public async Task<IActionResult> DeleteTraderMine(Guid id, Guid mineId)
+        public async Task<IActionResult> DeleteTraderMine(Guid traderId, Guid mineId)
         {
-            var traderMines = await _traderService.DeleteTraderMine(id, mineId);
+            var trader = await traderService.DeleteTraderMine(traderId, mineId);
+            var mappedResponse = mapper.Map<GetTraderMinesResponseModel>(trader);
 
-            return Ok(traderMines);
+            return Ok(mappedResponse);
+        }
+
+        public TraderResponseModel MapFromDbToTraderResponseModel(Trader dbModel)
+        {
+            return mapper.Map<TraderResponseModel>(dbModel);
         }
     }
 }

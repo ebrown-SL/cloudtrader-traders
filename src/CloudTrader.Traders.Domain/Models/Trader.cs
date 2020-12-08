@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CloudTrader.Traders.Models.POCO
+namespace CloudTrader.Traders.Domain.Models
 {
     public class Trader
     {

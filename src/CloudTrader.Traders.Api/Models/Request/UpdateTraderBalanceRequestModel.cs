@@ -1,4 +1,4 @@
-﻿namespace CloudTrader.Traders.Models.Api.Request
+﻿namespace CloudTrader.Traders.Api.Models.Request
 {
     public class UpdateTraderBalanceRequestModel
     {

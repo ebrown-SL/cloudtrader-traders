@@ -1,7 +1,7 @@
-﻿using CloudTrader.Traders.Models.POCO;
+﻿using CloudTrader.Traders.Domain.Models;
 using System.Collections.Generic;
 
-namespace CloudTrader.Traders.Models.Api.Response
+namespace CloudTrader.Traders.Api.Models.Response
 {
     public class GetTraderMinesResponseModel
     {

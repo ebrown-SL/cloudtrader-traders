@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CloudTrader.Traders.Models.Api.Request
+namespace CloudTrader.Traders.Api.Models.Request
 {
     public class SetTraderMineRequestModel
     {

@@ -1,4 +1,4 @@
-﻿using CloudTrader.Traders.Models.POCO;
+﻿using CloudTrader.Traders.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

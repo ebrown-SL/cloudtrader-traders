@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CloudTrader.Traders.Models.Api.Response
+namespace CloudTrader.Traders.Api.Models.Response
 {
     public class GetTradersByMineIdResponseModel
     {

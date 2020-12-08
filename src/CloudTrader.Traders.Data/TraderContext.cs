@@ -1,4 +1,4 @@
-﻿using CloudTrader.Traders.Models.POCO;
+﻿using CloudTrader.Traders.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

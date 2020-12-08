@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CloudTrader.Traders.Api.Models;
 using CloudTrader.Traders.Data;
 using CloudTrader.Traders.Service;
 using Microsoft.AspNetCore.Builder;

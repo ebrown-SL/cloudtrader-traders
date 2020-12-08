@@ -1,7 +1,8 @@
-﻿using CloudTrader.Traders.Models.Api.Request;
+﻿using CloudTrader.Traders.Api.Models.Request;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Traders.Models.Tests.Api.Request
