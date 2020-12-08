@@ -6,11 +6,11 @@ namespace CloudTrader.Traders.Data
 {
     public class TraderContext : DbContext
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration configuration;
 
         public TraderContext(DbContextOptions<TraderContext> options, IConfiguration configuration) : base(options)
         {
-            _configuration = configuration;
+            this.configuration = configuration;
         }
 
         public DbSet<Trader> Traders { get; set; }
@@ -21,8 +21,8 @@ namespace CloudTrader.Traders.Data
         {
             optionsBuilder
                 .UseCosmos(
-                _configuration["CosmosEndpoint"],
-                _configuration["CosmosKey"],
+                configuration["CosmosEndpoint"],
+                configuration["CosmosKey"],
                 databaseName: "CloudTrader");
         }
 
