@@ -21,7 +21,10 @@ namespace CloudTrader.Traders.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true);
+            services
+                .AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true)
+                .AddNewtonsoftJson();
+
             services.AddScoped<ITraderService, TraderService>();
             services.AddScoped<ITraderRepository, TraderRepository>();
             services.AddAutoMapper(typeof(TraderProfile));

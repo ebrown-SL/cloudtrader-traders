@@ -12,10 +12,12 @@ using System.Threading.Tasks;
 
 namespace CloudTrader.Traders.Api.Controllers
 {
-    [Route("api/trader")]
+    [Route(ROUTE)]
     [ApiController]
     public class TraderController : ControllerBase
     {
+        public const string ROUTE = "api/trader";
+
         private readonly IMapper mapper;
         private readonly ITraderService traderService;
 
@@ -60,7 +62,7 @@ namespace CloudTrader.Traders.Api.Controllers
         {
             var trader = await traderService.CreateTrader(body.Balance);
 
-            return Created($"/api/trader/{trader.Id}", MapFromDbToTraderResponseModel(trader));
+            return Created($"/{ROUTE}/{trader.Id}", MapFromDbToTraderResponseModel(trader));
         }
 
         [HttpGet("{traderId}")]
@@ -97,9 +99,9 @@ namespace CloudTrader.Traders.Api.Controllers
             )]
         [SwaggerResponse(StatusCodes.Status200OK, "Balance updated", typeof(TraderResponseModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Trader not found")]
-        public async Task<IActionResult> UpdateBalance(Guid id, UpdateTraderBalanceRequestModel body)
+        public async Task<IActionResult> UpdateBalance(Guid traderId, UpdateTraderBalanceRequestModel body)
         {
-            var trader = await traderService.UpdateBalance(id, body.AmountToAdd);
+            var trader = await traderService.UpdateBalance(traderId, body.AmountToAdd);
 
             return Ok(MapFromDbToTraderResponseModel(trader));
         }
