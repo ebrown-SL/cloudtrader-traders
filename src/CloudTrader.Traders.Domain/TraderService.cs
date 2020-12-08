@@ -18,9 +18,10 @@ namespace CloudTrader.Traders.Service
 
         public async Task<Trader> CreateTrader(int initialBalance)
         {
-            var trader = await traderRepository.SaveTrader(new Trader { Balance = initialBalance });
+            var newTrader = new Trader { Balance = initialBalance };
 
-            return trader;
+            var savedTrader = await traderRepository.CreateTrader(newTrader);
+            return savedTrader;
         }
 
         public async Task<Trader> GetTrader(Guid id)
@@ -61,21 +62,30 @@ namespace CloudTrader.Traders.Service
 
         public async Task<Trader> SetBalance(Guid traderId, int newBalance)
         {
-            var trader = await traderRepository.SetBalance(traderId, newBalance);
+            var trader = await traderRepository.GetTrader(traderId);
+
             if (trader == null)
-            {
                 throw new TraderNotFoundException(traderId);
-            }
+
+            trader.Balance = newBalance;
+
+            trader = await traderRepository.UpdateTrader(trader);
+
             return trader;
         }
 
         public async Task<Trader> UpdateBalance(Guid traderId, int amountToAdd)
         {
-            var trader = await traderRepository.UpdateBalance(traderId, amountToAdd);
+            var trader = await traderRepository.GetTrader(traderId);
+
             if (trader == null)
-            {
                 throw new TraderNotFoundException(traderId);
-            }
+
+            var newBalance = trader.Balance + amountToAdd;
+            trader.Balance = newBalance;
+
+            trader = await traderRepository.UpdateTrader(trader);
+
             return trader;
         }
 
@@ -96,17 +106,42 @@ namespace CloudTrader.Traders.Service
 
         public async Task<ICollection<CloudStock>> SetTraderMine(Guid traderId, Guid mineId, int newStock)
         {
-            var trader = await traderRepository.SetTraderMine(traderId, mineId, newStock);
+            var trader = await traderRepository.GetTrader(traderId);
             if (trader == null)
-            {
                 throw new TraderNotFoundException(traderId);
+
+            trader.CloudStocks ??= new HashSet<CloudStock>();
+
+            var existingMine = trader.CloudStocks.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
+
+            if (existingMine == null)
+            {
+                trader.CloudStocks.Add(new CloudStock { MineId = mineId, Stock = newStock });
             }
+            else
+            {
+                existingMine.Stock = newStock;
+            }
+
+            trader = await traderRepository.UpdateTrader(trader);
+
             return trader.CloudStocks;
         }
 
         public async Task<Trader> DeleteTraderMine(Guid traderId, Guid mineId)
         {
-            var trader = await traderRepository.DeleteTraderMine(traderId, mineId);
+            var trader = await traderRepository.GetTrader(traderId);
+            if (trader == null)
+                throw new TraderNotFoundException(traderId);
+
+            var traderMine = trader.CloudStocks.FirstOrDefault(cloudStock => cloudStock.MineId == mineId);
+            if (traderMine != null)
+            {
+                trader.CloudStocks.Remove(traderMine);
+            }
+
+            trader = await traderRepository.UpdateTrader(trader);
+
             return trader;
         }
     }

@@ -28,8 +28,8 @@ namespace CloudTrader.Traders.Service.Tests
             var (mockTraderRepository, traderService) = SetupMockConfig();
 
             mockTraderRepository
-                .Setup(mock => mock.SaveTrader(It.IsAny<Trader>()))
-                .ReturnsAsync(new Trader { Id = new Guid(), Balance = 0 });
+                .Setup(mock => mock.CreateTrader(It.IsAny<Trader>()))
+                .ReturnsAsync((Trader trader) => trader);
 
             var trader = await traderService.CreateTrader(0);
 
@@ -37,6 +37,22 @@ namespace CloudTrader.Traders.Service.Tests
             var isValid = Validator.TryValidateObject(trader, new System.ComponentModel.DataAnnotations.ValidationContext(trader), validationResults, true);
 
             Assert.True(isValid);
+        }
+
+        [TestCase(0)]
+        [TestCase(100)]
+        [TestCase(1000)]
+        public async Task CreateTrader_CreatesTrader_WithExpectedBalance(int initialBalance)
+        {
+            var (mockTraderRepository, traderService) = SetupMockConfig();
+
+            mockTraderRepository
+                .Setup(mock => mock.CreateTrader(It.Is<Trader>(t => t.Balance == initialBalance)))
+                .ReturnsAsync((Trader trader) => trader);
+
+            var trader = await traderService.CreateTrader(initialBalance);
+
+            Assert.AreEqual(initialBalance, trader.Balance);
         }
 
         [Test]
@@ -130,25 +146,34 @@ namespace CloudTrader.Traders.Service.Tests
             var (mockTraderRepository, traderService) = SetupMockConfig();
 
             mockTraderRepository
-                .Setup(mock => mock.SetBalance(It.IsAny<Guid>(), It.IsAny<int>()))
+                .Setup(mock => mock.GetTrader(It.IsAny<Guid>()))
                 .ReturnsAsync((Trader)null);
 
             Assert.ThrowsAsync<TraderNotFoundException>(async () => await traderService.SetBalance(new Guid(), 0));
         }
 
         [Test]
-        public async Task SetBalance_TraderExists_ReturnsTraderWithUpdatedBalance()
+        public async Task SetBalance_TraderExists_UpdatesBalanceAndReturnsTrader()
         {
             var (mockTraderRepository, traderService) = SetupMockConfig();
 
+            var updatedBalance = 200;
+
             var traderGuid = new Guid();
+            var trader = new Trader { Id = traderGuid, Balance = 100 };
+
             mockTraderRepository
-                .Setup(mock => mock.SetBalance(It.Is<Guid>(i => i == traderGuid), It.Is<int>(bal => bal == 100)))
-                .ReturnsAsync(new Trader { Id = traderGuid, Balance = 100 });
+                .Setup(mock => mock.GetTrader(It.Is<Guid>(i => i == traderGuid)))
+                .ReturnsAsync(trader);
 
-            var updatedTraderBalance = await traderService.SetBalance(traderGuid, 100);
+            mockTraderRepository
+                .Setup(mock => mock.UpdateTrader(It.Is<Trader>(t => t.Id == traderGuid && t.Balance == updatedBalance)))
+                .ReturnsAsync((Trader trader) => trader);
 
-            Assert.AreEqual(100, updatedTraderBalance.Balance);
+            var updatedTraderBalance = await traderService.SetBalance(traderGuid, updatedBalance);
+
+            Assert.AreEqual(traderGuid, trader.Id);
+            Assert.AreEqual(updatedBalance, updatedTraderBalance.Balance);
         }
 
         [Test]
@@ -157,7 +182,7 @@ namespace CloudTrader.Traders.Service.Tests
             var (mockTraderRepository, traderService) = SetupMockConfig();
 
             mockTraderRepository
-                .Setup(mock => mock.UpdateBalance(It.IsAny<Guid>(), It.IsAny<int>()))
+                .Setup(mock => mock.GetTrader(It.IsAny<Guid>()))
                 .ReturnsAsync((Trader)null);
 
             Assert.ThrowsAsync<TraderNotFoundException>(async () => await traderService.UpdateBalance(new Guid(), 20));
@@ -169,17 +194,21 @@ namespace CloudTrader.Traders.Service.Tests
             var (mockTraderRepository, traderService) = SetupMockConfig();
 
             var traderGuid = new Guid();
-            var trader = new Trader() { Id = traderGuid, Balance = 100 };
-            var expectedResult = new Trader() { Id = traderGuid, Balance = 100 };
+            var initialBalance = 100;
+            var addToBalance = 50;
+            var trader = new Trader() { Id = traderGuid, Balance = initialBalance };
 
             mockTraderRepository
-                .Setup(mock => mock.UpdateBalance(It.Is<Guid>(id => id == traderGuid), It.Is<int>(amt => amt == 20)))
+                .Setup(mock => mock.GetTrader(It.Is<Guid>(id => id == traderGuid)))
                 .ReturnsAsync(trader);
 
-            var updatedTrader = await traderService
-                .UpdateBalance(traderGuid, 20);
+            mockTraderRepository
+                .Setup(mock => mock.UpdateTrader(It.Is<Trader>(t => t.Id == traderGuid && t.Balance == 150)))
+                .ReturnsAsync(trader);
 
-            Assert.AreEqual(expectedResult.Balance, updatedTrader.Balance);
+            var updatedTrader = await traderService.UpdateBalance(traderGuid, addToBalance);
+
+            Assert.AreEqual(initialBalance + addToBalance, updatedTrader.Balance);
         }
 
         [Test]
@@ -233,7 +262,7 @@ namespace CloudTrader.Traders.Service.Tests
             var (mockTraderRepository, traderService) = SetupMockConfig();
 
             mockTraderRepository
-                .Setup(mock => mock.SetTraderMine(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<int>()))
+                .Setup(mock => mock.GetTrader(It.IsAny<Guid>()))
                 .ReturnsAsync((Trader)null);
 
             Assert.ThrowsAsync<TraderNotFoundException>(async () => await traderService.SetTraderMine(new Guid(), new Guid(), 1));
