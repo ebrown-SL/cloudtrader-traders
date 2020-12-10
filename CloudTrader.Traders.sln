@@ -3,19 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Api", "src\CloudTrader.Traders.Api\CloudTrader.Traders.Api.csproj", "{16931052-5FCD-480D-8707-B7A843B22C0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Api", "CloudTrader.Traders.Api\CloudTrader.Traders.Api.csproj", "{16931052-5FCD-480D-8707-B7A843B22C0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Domain", "src\CloudTrader.Traders.Domain\CloudTrader.Traders.Domain.csproj", "{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Domain", "CloudTrader.Traders.Domain\CloudTrader.Traders.Domain.csproj", "{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Data", "src\CloudTrader.Traders.Data\CloudTrader.Traders.Data.csproj", "{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Data", "CloudTrader.Traders.Data\CloudTrader.Traders.Data.csproj", "{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Domain.Tests", "test\CloudTrader.Traders.Domain.Tests\CloudTrader.Traders.Domain.Tests.csproj", "{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{B36C4EE7-899F-4F11-9995-ACFE20945C72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Domain.Tests", "CloudTrader.Traders.Domain.Tests\CloudTrader.Traders.Domain.Tests.csproj", "{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{606E19BE-6478-4F42-8233-4FB3FF9ACCA9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Api.Tests", "test\CloudTrader.Traders.Api.Tests\CloudTrader.Traders.Api.Tests.csproj", "{2E1F9C75-F560-4228-94C3-8756981FD473}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Traders.Api.Tests", "CloudTrader.Traders.Api.Tests\CloudTrader.Traders.Api.Tests.csproj", "{2E1F9C75-F560-4228-94C3-8756981FD473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,9 +46,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{16931052-5FCD-480D-8707-B7A843B22C0F} = {B36C4EE7-899F-4F11-9995-ACFE20945C72}
-		{E5026F6B-0017-44C9-9AE5-1DAC89D6C96B} = {B36C4EE7-899F-4F11-9995-ACFE20945C72}
-		{A17E7A52-4A89-4F82-A9D4-DB6FCA03E8EE} = {B36C4EE7-899F-4F11-9995-ACFE20945C72}
 		{1C7FE1BE-38E0-4EC6-A44E-4D18CB30923D} = {606E19BE-6478-4F42-8233-4FB3FF9ACCA9}
 		{2E1F9C75-F560-4228-94C3-8756981FD473} = {606E19BE-6478-4F42-8233-4FB3FF9ACCA9}
 	EndGlobalSection
