@@ -5,6 +5,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>CloudTrader.Traders.Api</RootNamespace>
     <AssemblyName>CloudTrader.Traders</AssemblyName>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'cloudtrader_traders' ">

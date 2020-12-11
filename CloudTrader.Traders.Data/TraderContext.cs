@@ -13,9 +13,13 @@ namespace CloudTrader.Traders.Data
             this.configuration = configuration;
         }
 
+#nullable disable
+
+        // From MS docs: if the DbSet<TEntity> properties have a public setter, they are automatically initialized when the instance of the derived context is created.
         public DbSet<Trader> Traders { get; set; }
 
         public DbSet<CloudStock> CloudStocks { get; set; }
+#nullable restore
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
